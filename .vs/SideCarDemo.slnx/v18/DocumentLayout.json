@@ -344,7 +344,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 8,
+          "SelectedChildIndex": 10,
           "Children": [
             {
               "$type": "Bookmark",
@@ -375,6 +375,14 @@
               "Name": "ST:0:0:{9b96d899-3214-4b6f-a8b9-182d4bc2f76f}"
             },
             {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
               "$type": "Document",
               "DocumentIndex": 4,
               "Title": "UserService.cs",
@@ -384,8 +392,7 @@
               "RelativeToolTip": "SideCar.Business\\Services\\UserService.cs",
               "ViewState": "AgIAAKIAAAAAAAAAAAAIwLQAAABYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-20T07:57:25.93Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-20T07:57:25.93Z"
             },
             {
               "$type": "Document",
@@ -410,8 +417,7 @@
               "RelativeToolTip": "SideCar.Business\\DTOs\\ApiResponse.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAsAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-19T08:08:45.597Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-19T08:08:45.597Z"
             },
             {
               "$type": "Document",
@@ -423,8 +429,7 @@
               "RelativeToolTip": "SideCar.API\\Controllers\\EmailController.cs",
               "ViewState": "AgIAAAYAAAAAAAAAAAAAAA8AAAA5AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-16T02:53:13.685Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-16T02:53:13.685Z"
             },
             {
               "$type": "Document",
@@ -436,8 +441,7 @@
               "RelativeToolTip": "SideCar.Business\\DTOs\\Params\\QueryUserParams.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAuwAgAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-21T02:28:01.732Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-21T02:28:01.732Z"
             },
             {
               "$type": "Document",
@@ -449,8 +453,7 @@
               "RelativeToolTip": "SideCar.Business\\DTOs\\ChangePasswordRequest.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAuwA0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-28T08:30:13.005Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-28T08:30:13.005Z"
             },
             {
               "$type": "Document",
@@ -462,8 +465,7 @@
               "RelativeToolTip": "SideCar.Business\\Repositories\\Interfaces\\IUserRepository.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAuwAkAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-22T03:38:25.021Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-22T03:38:25.021Z"
             },
             {
               "$type": "Document",
@@ -475,8 +477,7 @@
               "RelativeToolTip": "SideCar.Business\\Repositories\\UserRepository.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAACUAAABTAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-20T07:51:36.332Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-20T07:51:36.332Z"
             },
             {
               "$type": "Document",
@@ -488,8 +489,7 @@
               "RelativeToolTip": "SideCar.Authen\\AuthenService.cs",
               "ViewState": "AgIAAEwAAAAAAAAAAAAQwGEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-13T02:07:41.16Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-13T02:07:41.16Z"
             },
             {
               "$type": "Document",
@@ -501,8 +501,7 @@
               "RelativeToolTip": "SideCar.Authen\\SideCar.Authen.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2026-04-13T02:07:10.384Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-13T02:07:10.384Z"
             },
             {
               "$type": "Document",
@@ -514,8 +513,7 @@
               "RelativeToolTip": "SideCar.Business\\SideCar.Business.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2026-04-10T03:31:35.052Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-10T03:31:35.052Z"
             },
             {
               "$type": "Document",
@@ -527,8 +525,7 @@
               "RelativeToolTip": "SideCar.Business\\Services\\Interfaces\\IUserService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAhAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-20T07:53:23.409Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-20T07:53:23.409Z"
             },
             {
               "$type": "Document",
@@ -540,8 +537,7 @@
               "RelativeToolTip": "SideCar.Business\\Helpers\\ValidationRules\\ValidatePhone.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAA1AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-19T15:29:23.99Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-19T15:29:23.99Z"
             },
             {
               "$type": "Document",
@@ -553,8 +549,7 @@
               "RelativeToolTip": "SideCar.Authen\\Controllers\\AuthController.cs",
               "ViewState": "AgIAACMAAAAAAAAAAAAgwDQAAABdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-20T01:49:00.183Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-20T01:49:00.183Z"
             },
             {
               "$type": "Document",
@@ -566,8 +561,7 @@
               "RelativeToolTip": "SideCar.Authen\\IAuthenService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAuwA8AAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-13T02:07:25.045Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-13T02:07:25.045Z"
             },
             {
               "$type": "Document",
@@ -579,8 +573,7 @@
               "RelativeToolTip": "SideCar.Business\\DTOs\\ForgotPasswordRequest.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAuwA4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-21T07:21:28.387Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-21T07:21:28.387Z"
             },
             {
               "$type": "Document",
@@ -592,8 +585,7 @@
               "RelativeToolTip": "SideCar.Business\\Services\\Interfaces\\IEmailPublisher.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-28T07:58:24.861Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-28T07:58:24.861Z"
             },
             {
               "$type": "Document",
@@ -605,8 +597,7 @@
               "RelativeToolTip": "SideCar.Business\\DTOs\\ResetPasswordRequest.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-21T07:22:40.8Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-21T07:22:40.8Z"
             },
             {
               "$type": "Document",
@@ -618,8 +609,7 @@
               "RelativeToolTip": "SideCar.Business\\Services\\HangfireEmailPublisher.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-28T07:58:22.982Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-28T07:58:22.982Z"
             },
             {
               "$type": "Document",
@@ -631,8 +621,7 @@
               "RelativeToolTip": "SideCar.API\\Program.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAxAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-10T03:14:55.092Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-10T03:14:55.092Z"
             },
             {
               "$type": "Document",
@@ -644,8 +633,7 @@
               "RelativeToolTip": "SideCar.Business\\DTOs\\Pagination.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-24T11:21:18.795Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-24T11:21:18.795Z"
             },
             {
               "$type": "Document",
@@ -657,8 +645,7 @@
               "RelativeToolTip": "SideCar.Worker\\appsettings.Development.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-04-13T06:45:46.029Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-13T06:45:46.029Z"
             },
             {
               "$type": "Document",
@@ -670,8 +657,7 @@
               "RelativeToolTip": "SideCar.Worker\\appsettings.json",
               "ViewState": "AgIAAAYAAAAAAAAAAAAAACIAAAADAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-04-13T06:45:21.967Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-13T06:45:21.967Z"
             },
             {
               "$type": "Document",
@@ -683,8 +669,7 @@
               "RelativeToolTip": "SideCar.Worker\\Program.cs",
               "ViewState": "AgIAAA8AAAAAAAAAAAAAACUAAAAPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-10T03:28:11.118Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-10T03:28:11.118Z"
             },
             {
               "$type": "Document",
@@ -696,8 +681,7 @@
               "RelativeToolTip": "SideCar.Business\\Services\\IEmailService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAABOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-10T03:23:38.979Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-10T03:23:38.979Z"
             },
             {
               "$type": "Document",
@@ -709,8 +693,7 @@
               "RelativeToolTip": "SideCar.API\\appsettings.Development.json",
               "ViewState": "AgIAAAkAAAAAAAAAAAAAACYAAAADAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-04-13T06:30:57.799Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-13T06:30:57.799Z"
             },
             {
               "$type": "Document",
@@ -722,8 +705,7 @@
               "RelativeToolTip": "SideCar.API\\appsettings.json",
               "ViewState": "AgIAAAwAAAAAAAAAAAAAACQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-04-10T03:27:44.25Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-10T03:27:44.25Z"
             },
             {
               "$type": "Document",
@@ -735,8 +717,7 @@
               "RelativeToolTip": "SideCar.Business\\Repositories\\Interfaces\\IAuthenRepository.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-15T09:31:00.526Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-15T09:31:00.526Z"
             },
             {
               "$type": "Document",
@@ -748,8 +729,7 @@
               "RelativeToolTip": "SideCar.Business\\Repositories\\GenericRepository.cs",
               "ViewState": "AgIAACIAAAAAAAAAAAAqwDAAAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-15T07:55:31.746Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-15T07:55:31.746Z"
             },
             {
               "$type": "Document",
@@ -761,8 +741,7 @@
               "RelativeToolTip": "SideCar.Business\\Services\\EmailService.cs",
               "ViewState": "AgIAADoAAAAAAAAAAAAkwEwAAABMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-10T03:27:00.042Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-10T03:27:00.042Z"
             },
             {
               "$type": "Document",
@@ -774,8 +753,7 @@
               "RelativeToolTip": "SideCar.Business\\Helpers\\Settings\\EmailSettings.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-10T07:28:21.321Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-10T07:28:21.321Z"
             },
             {
               "$type": "Document",
@@ -787,8 +765,7 @@
               "RelativeToolTip": "SideCar.Business\\Helpers\\Constants\\ValidationConstants.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-28T06:26:13.209Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-28T06:26:13.209Z"
             },
             {
               "$type": "Document",
@@ -800,8 +777,7 @@
               "RelativeToolTip": "SideCar.Business\\Entities\\Users.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAA8AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-15T06:35:50.094Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-15T06:35:50.094Z"
             },
             {
               "$type": "Document",
@@ -813,8 +789,7 @@
               "RelativeToolTip": "SideCar.Business\\Enums\\Roles.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-28T04:06:18.395Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-28T04:06:18.395Z"
             },
             {
               "$type": "Document",
@@ -826,8 +801,7 @@
               "RelativeToolTip": "SideCar.Business\\Repositories\\AuthenRepository.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-15T09:29:31.141Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-15T09:29:31.141Z"
             },
             {
               "$type": "Document",
@@ -839,8 +813,7 @@
               "RelativeToolTip": "SideCar.Business\\Helpers\\Exceptions\\BusinessException.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAABKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-28T03:51:57.203Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-28T03:51:57.203Z"
             },
             {
               "$type": "Document",
@@ -852,8 +825,7 @@
               "RelativeToolTip": "SideCar.Business\\Helpers\\Exceptions\\GlobalExceptionHandler.cs",
               "ViewState": "AgIAAAsAAAAAAAAAAAAAwB8AAAAvAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-20T09:01:22.527Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-20T09:01:22.527Z"
             },
             {
               "$type": "Document",
@@ -913,8 +885,7 @@
               "RelativeToolTip": "SideCar.Business\\DTOs\\Params\\BaseParams.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAuwAgAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-21T02:20:19.954Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-21T02:20:19.954Z"
             },
             {
               "$type": "Document",
@@ -950,8 +921,7 @@
               "RelativeToolTip": "SideCar.Business\\Helpers\\ValidationRules\\ValidatePassword.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-16T03:25:03.752Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-16T03:25:03.752Z"
             },
             {
               "$type": "Document",
@@ -963,8 +933,7 @@
               "RelativeToolTip": "SideCar.Business\\DTOs\\RegisterRequest.cs",
               "ViewState": "AgIAAAYAAAAAAAAAAAAAAA0AAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-16T02:52:47.235Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-16T02:52:47.235Z"
             },
             {
               "$type": "Document",
@@ -988,8 +957,7 @@
               "RelativeToolTip": "SideCar.API\\SideCar.API.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2026-04-10T03:10:01.426Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-10T03:10:01.426Z"
             },
             {
               "$type": "Document",
@@ -1073,8 +1041,7 @@
               "RelativeToolTip": "SideCar.Business\\DTOs\\UserResponseDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAuwAgAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-20T07:54:07.611Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-20T07:54:07.611Z"
             },
             {
               "$type": "Document",
@@ -1086,8 +1053,7 @@
               "RelativeToolTip": "SideCar.Business\\DTOs\\AdminCreateAccountRequest.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-22T07:38:35.375Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-22T07:38:35.375Z"
             },
             {
               "$type": "Document",
@@ -1099,8 +1065,7 @@
               "RelativeToolTip": "SideCar.Business\\DTOs\\LoginRequest.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-17T09:44:03.109Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-17T09:44:03.109Z"
             },
             {
               "$type": "Document",
@@ -1124,8 +1089,7 @@
               "RelativeToolTip": "SideCar.Test\\SideCar.Test.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2026-04-19T10:01:08.598Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-19T10:01:08.598Z"
             },
             {
               "$type": "Document",
@@ -1185,8 +1149,7 @@
               "RelativeToolTip": "SideCar.Business\\Helpers\\Settings\\AwsSettings.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-16T08:48:26.34Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-16T08:48:26.34Z"
             },
             {
               "$type": "Document",
@@ -1282,8 +1245,7 @@
               "RelativeToolTip": "SideCar.Business\\Migrations\\20260419155948_addRefreshToken.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-19T15:59:48.548Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-19T15:59:48.548Z"
             },
             {
               "$type": "Document",
@@ -1305,8 +1267,7 @@
               "RelativeToolTip": "SideCar.Worker\\SideCar.Worker.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2026-04-10T03:10:10.588Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-10T03:10:10.588Z"
             },
             {
               "$type": "Document",
@@ -1340,8 +1301,7 @@
               "RelativeToolTip": "SideCar.Business\\Migrations\\20260416020736_MyNewMigration.cs",
               "ViewState": "AgIAABMAAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-16T02:07:36.859Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-16T02:07:36.859Z"
             },
             {
               "$type": "Document",
@@ -1364,8 +1324,7 @@
               "ToolTip": "E:\\7.Pet_Project\\Training\\SideCarDemo\\SideCar.Authen\\SideCar.Authen.csproj",
               "RelativeToolTip": "SideCar.Authen\\SideCar.Authen.csproj",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2026-04-13T07:49:37.761Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-13T07:49:37.761Z"
             },
             {
               "$type": "Document",
@@ -1410,8 +1369,7 @@
               "ToolTip": "E:\\7.Pet_Project\\Training\\SideCarDemo\\SideCar.Worker\\SideCar.Worker.csproj",
               "RelativeToolTip": "SideCar.Worker\\SideCar.Worker.csproj",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2026-04-13T06:59:07.664Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-13T06:59:07.664Z"
             },
             {
               "$type": "Document",
@@ -1423,18 +1381,6 @@
               "RelativeToolTip": "SideCar.Authen\\Migrations\\20260413064325_firstMigration.cs",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-13T06:43:25.735Z"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
             }
           ]
         },

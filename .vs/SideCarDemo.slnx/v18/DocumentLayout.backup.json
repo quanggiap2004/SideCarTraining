@@ -7,6 +7,10 @@
       "RelativeMoniker": "D:0:0:{E9469D82-9658-FCD2-93E9-4AEBADEB76C5}|SideCar.API\\SideCar.API.csproj|solutionrelative:sidecar.api\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{410BBF32-5B05-47C8-F2F3-887DC5D4DC57}|SideCar.Business\\SideCar.Business.csproj|e:\\7.pet_project\\training\\sidecardemo\\sidecar.business\\dtos\\params\\queryuserparams.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{410BBF32-5B05-47C8-F2F3-887DC5D4DC57}|SideCar.Business\\SideCar.Business.csproj|solutionrelative:sidecar.business\\dtos\\params\\queryuserparams.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{E9469D82-9658-FCD2-93E9-4AEBADEB76C5}|SideCar.API\\SideCar.API.csproj|e:\\7.pet_project\\training\\sidecardemo\\sidecar.api\\controllers\\emailcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E9469D82-9658-FCD2-93E9-4AEBADEB76C5}|SideCar.API\\SideCar.API.csproj|solutionrelative:sidecar.api\\controllers\\emailcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -113,10 +117,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{410BBF32-5B05-47C8-F2F3-887DC5D4DC57}|SideCar.Business\\SideCar.Business.csproj|e:\\7.pet_project\\training\\sidecardemo\\sidecar.business\\repositories\\genericrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{410BBF32-5B05-47C8-F2F3-887DC5D4DC57}|SideCar.Business\\SideCar.Business.csproj|solutionrelative:sidecar.business\\repositories\\genericrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{410BBF32-5B05-47C8-F2F3-887DC5D4DC57}|SideCar.Business\\SideCar.Business.csproj|e:\\7.pet_project\\training\\sidecardemo\\sidecar.business\\dtos\\params\\queryuserparams.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{410BBF32-5B05-47C8-F2F3-887DC5D4DC57}|SideCar.Business\\SideCar.Business.csproj|solutionrelative:sidecar.business\\dtos\\params\\queryuserparams.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{410BBF32-5B05-47C8-F2F3-887DC5D4DC57}|SideCar.Business\\SideCar.Business.csproj|e:\\7.pet_project\\training\\sidecardemo\\sidecar.business\\services\\emailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -344,7 +344,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 10,
+          "SelectedChildIndex": 8,
           "Children": [
             {
               "$type": "Bookmark",
@@ -376,7 +376,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "UserService.cs",
               "DocumentMoniker": "E:\\7.Pet_Project\\Training\\SideCarDemo\\SideCar.Business\\Services\\UserService.cs",
               "RelativeDocumentMoniker": "SideCar.Business\\Services\\UserService.cs",
@@ -389,46 +389,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "ChangePasswordRequest.cs",
-              "DocumentMoniker": "E:\\7.Pet_Project\\Training\\SideCarDemo\\SideCar.Business\\DTOs\\ChangePasswordRequest.cs",
-              "RelativeDocumentMoniker": "SideCar.Business\\DTOs\\ChangePasswordRequest.cs",
-              "ToolTip": "E:\\7.Pet_Project\\Training\\SideCarDemo\\SideCar.Business\\DTOs\\ChangePasswordRequest.cs",
-              "RelativeToolTip": "SideCar.Business\\DTOs\\ChangePasswordRequest.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAuwA0AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-28T08:30:13.005Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "IUserRepository.cs",
-              "DocumentMoniker": "E:\\7.Pet_Project\\Training\\SideCarDemo\\SideCar.Business\\Repositories\\Interfaces\\IUserRepository.cs",
-              "RelativeDocumentMoniker": "SideCar.Business\\Repositories\\Interfaces\\IUserRepository.cs",
-              "ToolTip": "E:\\7.Pet_Project\\Training\\SideCarDemo\\SideCar.Business\\Repositories\\Interfaces\\IUserRepository.cs",
-              "RelativeToolTip": "SideCar.Business\\Repositories\\Interfaces\\IUserRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAkAAAAVAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-22T03:38:25.021Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
               "Title": "UsersController.cs",
               "DocumentMoniker": "E:\\7.Pet_Project\\Training\\SideCarDemo\\SideCar.API\\Controllers\\UsersController.cs",
               "RelativeDocumentMoniker": "SideCar.API\\Controllers\\UsersController.cs",
               "ToolTip": "E:\\7.Pet_Project\\Training\\SideCarDemo\\SideCar.API\\Controllers\\UsersController.cs",
               "RelativeToolTip": "SideCar.API\\Controllers\\UsersController.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAABgAAAAkAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAABgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-20T08:11:23.616Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "ApiResponse.cs",
               "DocumentMoniker": "E:\\7.Pet_Project\\Training\\SideCarDemo\\SideCar.Business\\DTOs\\ApiResponse.cs",
               "RelativeDocumentMoniker": "SideCar.Business\\DTOs\\ApiResponse.cs",
@@ -441,7 +415,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "EmailController.cs",
               "DocumentMoniker": "E:\\7.Pet_Project\\Training\\SideCarDemo\\SideCar.API\\Controllers\\EmailController.cs",
               "RelativeDocumentMoniker": "SideCar.API\\Controllers\\EmailController.cs",
@@ -454,7 +428,46 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "QueryUserParams.cs",
+              "DocumentMoniker": "E:\\7.Pet_Project\\Training\\SideCarDemo\\SideCar.Business\\DTOs\\Params\\QueryUserParams.cs",
+              "RelativeDocumentMoniker": "SideCar.Business\\DTOs\\Params\\QueryUserParams.cs",
+              "ToolTip": "E:\\7.Pet_Project\\Training\\SideCarDemo\\SideCar.Business\\DTOs\\Params\\QueryUserParams.cs",
+              "RelativeToolTip": "SideCar.Business\\DTOs\\Params\\QueryUserParams.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAgAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-21T02:28:01.732Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ChangePasswordRequest.cs",
+              "DocumentMoniker": "E:\\7.Pet_Project\\Training\\SideCarDemo\\SideCar.Business\\DTOs\\ChangePasswordRequest.cs",
+              "RelativeDocumentMoniker": "SideCar.Business\\DTOs\\ChangePasswordRequest.cs",
+              "ToolTip": "E:\\7.Pet_Project\\Training\\SideCarDemo\\SideCar.Business\\DTOs\\ChangePasswordRequest.cs",
+              "RelativeToolTip": "SideCar.Business\\DTOs\\ChangePasswordRequest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwA0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-28T08:30:13.005Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 6,
+              "Title": "IUserRepository.cs",
+              "DocumentMoniker": "E:\\7.Pet_Project\\Training\\SideCarDemo\\SideCar.Business\\Repositories\\Interfaces\\IUserRepository.cs",
+              "RelativeDocumentMoniker": "SideCar.Business\\Repositories\\Interfaces\\IUserRepository.cs",
+              "ToolTip": "E:\\7.Pet_Project\\Training\\SideCarDemo\\SideCar.Business\\Repositories\\Interfaces\\IUserRepository.cs",
+              "RelativeToolTip": "SideCar.Business\\Repositories\\Interfaces\\IUserRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAkAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-22T03:38:25.021Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
               "Title": "UserRepository.cs",
               "DocumentMoniker": "E:\\7.Pet_Project\\Training\\SideCarDemo\\SideCar.Business\\Repositories\\UserRepository.cs",
               "RelativeDocumentMoniker": "SideCar.Business\\Repositories\\UserRepository.cs",
@@ -467,7 +480,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "AuthenService.cs",
               "DocumentMoniker": "E:\\7.Pet_Project\\Training\\SideCarDemo\\SideCar.Authen\\AuthenService.cs",
               "RelativeDocumentMoniker": "SideCar.Authen\\AuthenService.cs",
@@ -480,7 +493,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "SideCar.Authen.csproj",
               "DocumentMoniker": "E:\\7.Pet_Project\\Training\\SideCarDemo\\SideCar.Authen\\SideCar.Authen.csproj",
               "RelativeDocumentMoniker": "SideCar.Authen\\SideCar.Authen.csproj",
@@ -493,7 +506,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "SideCar.Business.csproj",
               "DocumentMoniker": "E:\\7.Pet_Project\\Training\\SideCarDemo\\SideCar.Business\\SideCar.Business.csproj",
               "RelativeDocumentMoniker": "SideCar.Business\\SideCar.Business.csproj",
@@ -506,7 +519,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 11,
               "Title": "IUserService.cs",
               "DocumentMoniker": "E:\\7.Pet_Project\\Training\\SideCarDemo\\SideCar.Business\\Services\\Interfaces\\IUserService.cs",
               "RelativeDocumentMoniker": "SideCar.Business\\Services\\Interfaces\\IUserService.cs",
@@ -519,7 +532,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 12,
               "Title": "ValidatePhone.cs",
               "DocumentMoniker": "E:\\7.Pet_Project\\Training\\SideCarDemo\\SideCar.Business\\Helpers\\ValidationRules\\ValidatePhone.cs",
               "RelativeDocumentMoniker": "SideCar.Business\\Helpers\\ValidationRules\\ValidatePhone.cs",
@@ -532,7 +545,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 13,
               "Title": "AuthController.cs",
               "DocumentMoniker": "E:\\7.Pet_Project\\Training\\SideCarDemo\\SideCar.Authen\\Controllers\\AuthController.cs",
               "RelativeDocumentMoniker": "SideCar.Authen\\Controllers\\AuthController.cs",
@@ -545,7 +558,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 14,
               "Title": "IAuthenService.cs",
               "DocumentMoniker": "E:\\7.Pet_Project\\Training\\SideCarDemo\\SideCar.Authen\\IAuthenService.cs",
               "RelativeDocumentMoniker": "SideCar.Authen\\IAuthenService.cs",
@@ -558,7 +571,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 15,
               "Title": "ForgotPasswordRequest.cs",
               "DocumentMoniker": "E:\\7.Pet_Project\\Training\\SideCarDemo\\SideCar.Business\\DTOs\\ForgotPasswordRequest.cs",
               "RelativeDocumentMoniker": "SideCar.Business\\DTOs\\ForgotPasswordRequest.cs",
@@ -571,7 +584,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 16,
               "Title": "IEmailPublisher.cs",
               "DocumentMoniker": "E:\\7.Pet_Project\\Training\\SideCarDemo\\SideCar.Business\\Services\\Interfaces\\IEmailPublisher.cs",
               "RelativeDocumentMoniker": "SideCar.Business\\Services\\Interfaces\\IEmailPublisher.cs",
@@ -584,7 +597,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 17,
               "Title": "ResetPasswordRequest.cs",
               "DocumentMoniker": "E:\\7.Pet_Project\\Training\\SideCarDemo\\SideCar.Business\\DTOs\\ResetPasswordRequest.cs",
               "RelativeDocumentMoniker": "SideCar.Business\\DTOs\\ResetPasswordRequest.cs",
@@ -597,7 +610,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 18,
               "Title": "HangfireEmailPublisher.cs",
               "DocumentMoniker": "E:\\7.Pet_Project\\Training\\SideCarDemo\\SideCar.Business\\Services\\HangfireEmailPublisher.cs",
               "RelativeDocumentMoniker": "SideCar.Business\\Services\\HangfireEmailPublisher.cs",
@@ -610,7 +623,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 21,
               "Title": "Program.cs",
               "DocumentMoniker": "E:\\7.Pet_Project\\Training\\SideCarDemo\\SideCar.API\\Program.cs",
               "RelativeDocumentMoniker": "SideCar.API\\Program.cs",
@@ -623,7 +636,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 22,
               "Title": "Pagination.cs",
               "DocumentMoniker": "E:\\7.Pet_Project\\Training\\SideCarDemo\\SideCar.Business\\DTOs\\Pagination.cs",
               "RelativeDocumentMoniker": "SideCar.Business\\DTOs\\Pagination.cs",
@@ -636,7 +649,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 23,
               "Title": "appsettings.Development.json",
               "DocumentMoniker": "E:\\7.Pet_Project\\Training\\SideCarDemo\\SideCar.Worker\\appsettings.Development.json",
               "RelativeDocumentMoniker": "SideCar.Worker\\appsettings.Development.json",
@@ -649,7 +662,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 24,
               "Title": "appsettings.json",
               "DocumentMoniker": "E:\\7.Pet_Project\\Training\\SideCarDemo\\SideCar.Worker\\appsettings.json",
               "RelativeDocumentMoniker": "SideCar.Worker\\appsettings.json",
@@ -662,7 +675,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 20,
               "Title": "Program.cs",
               "DocumentMoniker": "E:\\7.Pet_Project\\Training\\SideCarDemo\\SideCar.Worker\\Program.cs",
               "RelativeDocumentMoniker": "SideCar.Worker\\Program.cs",
@@ -675,7 +688,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 19,
               "Title": "IEmailService.cs",
               "DocumentMoniker": "E:\\7.Pet_Project\\Training\\SideCarDemo\\SideCar.Business\\Services\\IEmailService.cs",
               "RelativeDocumentMoniker": "SideCar.Business\\Services\\IEmailService.cs",
@@ -688,7 +701,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 25,
               "Title": "appsettings.Development.json",
               "DocumentMoniker": "E:\\7.Pet_Project\\Training\\SideCarDemo\\SideCar.API\\appsettings.Development.json",
               "RelativeDocumentMoniker": "SideCar.API\\appsettings.Development.json",
@@ -701,7 +714,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 26,
               "Title": "appsettings.json",
               "DocumentMoniker": "E:\\7.Pet_Project\\Training\\SideCarDemo\\SideCar.API\\appsettings.json",
               "RelativeDocumentMoniker": "SideCar.API\\appsettings.json",
@@ -714,7 +727,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 27,
               "Title": "IAuthenRepository.cs",
               "DocumentMoniker": "E:\\7.Pet_Project\\Training\\SideCarDemo\\SideCar.Business\\Repositories\\Interfaces\\IAuthenRepository.cs",
               "RelativeDocumentMoniker": "SideCar.Business\\Repositories\\Interfaces\\IAuthenRepository.cs",
@@ -727,7 +740,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 28,
               "Title": "GenericRepository.cs",
               "DocumentMoniker": "E:\\7.Pet_Project\\Training\\SideCarDemo\\SideCar.Business\\Repositories\\GenericRepository.cs",
               "RelativeDocumentMoniker": "SideCar.Business\\Repositories\\GenericRepository.cs",
@@ -736,19 +749,6 @@
               "ViewState": "AgIAACIAAAAAAAAAAAAqwDAAAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-15T07:55:31.746Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 28,
-              "Title": "QueryUserParams.cs",
-              "DocumentMoniker": "E:\\7.Pet_Project\\Training\\SideCarDemo\\SideCar.Business\\DTOs\\Params\\QueryUserParams.cs",
-              "RelativeDocumentMoniker": "SideCar.Business\\DTOs\\Params\\QueryUserParams.cs",
-              "ToolTip": "E:\\7.Pet_Project\\Training\\SideCarDemo\\SideCar.Business\\DTOs\\Params\\QueryUserParams.cs",
-              "RelativeToolTip": "SideCar.Business\\DTOs\\Params\\QueryUserParams.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAA1AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-21T02:28:01.732Z",
               "EditorCaption": ""
             },
             {
