@@ -1,0 +1,19 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Path": "SideCar.API\\SideCar.API.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "SideCar.Authen\\SideCar.Authen.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "SideCar.Worker\\SideCar.Worker.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]

@@ -55,3 +55,7 @@ CodeCoverage/
 *.VisualState.xml
 TestResult.xml
 nunit-*.xml
+
+CLAUDE.md
+postman_seed_users
+**/appsettings*.json 

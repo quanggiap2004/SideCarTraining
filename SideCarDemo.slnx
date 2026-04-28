@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="nginx.conf" />
+  </Folder>
+  <Project Path="SideCar.API/SideCar.API.csproj" />
+  <Project Path="SideCar.Authen/SideCar.Authen.csproj" Id="e990d2ca-e4b3-428f-923c-e81fe085372e" />
+  <Project Path="SideCar.Business/SideCar.Business.csproj" />
+  <Project Path="SideCar.Test/SideCar.Test.csproj" Id="f5cec288-bc23-4906-9e69-0e5b21d9ddfe" />
+  <Project Path="SideCar.Worker/SideCar.Worker.csproj" />
+</Solution>
