@@ -1,6 +1,6 @@
 namespace SideCar.Business.Helpers.Constants
 {
-    public static class ValidationConstants
+    public static class ProjectConstant
     {
         public const int PhoneLength = 10;
 
@@ -12,5 +12,8 @@ namespace SideCar.Business.Helpers.Constants
 
         public const int FullNameMinLength = 3;
         public const int FullNameMaxLength = 40;
+
+        public const int MaxNumberOfMessages = 10;
+        public const int WaitTimeSeconds = 20;
     }
 }

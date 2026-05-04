@@ -84,11 +84,6 @@ namespace SideCar.Business.Repositories
                 .ToListAsync();
         }
 
-        public async Task<int> SaveChangesAsync()
-        {
-            return await dbContext.SaveChangesAsync();
-        }
-
         public void Update(T entity)
         {
             dbContext.Set<T>().Attach(entity);

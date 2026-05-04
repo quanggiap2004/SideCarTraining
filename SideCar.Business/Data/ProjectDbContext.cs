@@ -7,14 +7,23 @@ namespace SideCar.Business.Data
     public class ProjectDbContext(DbContextOptions<ProjectDbContext> options) : DbContext(options)
     {
         public DbSet<Users> Users { get; set; }
+        public DbSet<UserActivityLog> UserActivityLogs { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            foreach (var entityType in modelBuilder.Model.GetEntityTypes()
+                .Where(e => typeof(BaseEntity).IsAssignableFrom(e.ClrType)))
+            {
+                modelBuilder.Entity(entityType.ClrType)
+                    .Property(nameof(BaseEntity.Id))
+                    .ValueGeneratedOnAdd();
+
+                modelBuilder.Entity(entityType.ClrType)
+                    .Property(nameof(BaseEntity.CreatedAt))
+                    .HasDefaultValueSql("GETUTCDATE()");
+            }
+
             modelBuilder.Entity<Users>(entity =>
             {
-                entity.Property(e => e.Id)
-                        .HasDefaultValueSql("NEWSEQUENTIALID()");
-                entity.Property(e => e.CreatedAt)
-                    .HasDefaultValueSql("GETUTCDATE()");
                 entity.HasIndex(e => e.Username).IsUnique();
                 entity.Property(e => e.Username).HasMaxLength(100).IsRequired();
                 entity.Property(e => e.PasswordHash).IsRequired();
@@ -24,6 +33,10 @@ namespace SideCar.Business.Data
                     .HasConversion<string>();
             });
 
+            modelBuilder.Entity<UserActivityLog>(entity =>
+            {
+                entity.Property(e => e.ActivityType).HasConversion<string>();
+            });
         }
     }
 }

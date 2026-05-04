@@ -1,8 +1,6 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Identity;
+using AutoMapper;
 using SideCar.Business.DTOs;
 using SideCar.Business.DTOs.Params;
-using SideCar.Business.Entities;
 using SideCar.Business.Enums;
 using SideCar.Business.Helpers.Constants;
 using SideCar.Business.Helpers.Exceptions;
@@ -11,30 +9,26 @@ using SideCar.Business.Services.Interfaces;
 using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 
-
 namespace SideCar.Business.Services
 {
-    public class UserService(IUserRepository userRepository, IEmailPublisher _emailPublisher, IMapper _mapper) : IUserService
+    public class UserService(IUnitOfWork _unitOfWork, IEmailPublisher _emailPublisher, IMapper _mapper) : IUserService
     {
         public async Task<bool> DeleteUserAccount(Guid id)
         {
-            var userAccount = await userRepository.FindUserByIdAsync(id);
-            if(userAccount == null)
-            {
+            var userAccount = await _unitOfWork.Users.FindUserByIdAsync(id);
+            if (userAccount == null)
                 throw new KeyNotFoundException("Account with id:" + id);
-            }
-            if(userAccount.IsDeleted)
-            {
-                return false;
-            }
-            if(userAccount.Role == Roles.Admin)
-            {
-                throw new BusinessException("Cannot delete admin account");
-            }
-            userAccount.IsDeleted = true;
-            await userRepository.SaveChangesAsync();
 
-            var templateRequest = new TemplateEmailRequest
+            if (userAccount.IsDeleted)
+                return false;
+
+            if (userAccount.Role == Roles.Admin)
+                throw new BusinessException("Cannot delete admin account");
+
+            userAccount.IsDeleted = true;
+            await _unitOfWork.CommitAsync();
+
+            _emailPublisher.QueueTemplateEmail(new TemplateEmailRequest
             {
                 Email = userAccount.Email,
                 Subject = "Account deactivation",
@@ -46,40 +40,36 @@ namespace SideCar.Business.Services
                     { "Username", userAccount.Username },
                     { "DeleteAt", DateTime.UtcNow.ToString("dd MMM yyyy, HH:mm UTC") }
                 }
-            };
-            _emailPublisher.QueueTemplateEmail(templateRequest);
+            });
+
             return true;
         }
 
         public async Task<(IEnumerable<UserResponseDto>, int totalCount)> GetAllUserAsync(QueryUserParams userParams)
         {
-            var userList = await userRepository.GetPagedUsersAsync(userParams);
-            var totalCount = await userRepository.CountUsersAsync(userParams);
-            var userResponseList = _mapper.Map<List<UserResponseDto>>(userList);
-            return (userResponseList, totalCount);
+            var userList = await _unitOfWork.Users.GetPagedUsersAsync(userParams);
+            var totalCount = await _unitOfWork.Users.CountUsersAsync(userParams);
+            return (_mapper.Map<List<UserResponseDto>>(userList), totalCount);
         }
 
         public async Task<UserProfileDto> GetUserProfileDtoAsync(Guid id)
         {
-            var userAccount = await userRepository.FindUserByIdAsync(id);
-            if(userAccount == null)
-            {
+            var userAccount = await _unitOfWork.Users.FindUserByIdAsync(id);
+            if (userAccount == null)
                 throw new ArgumentException("Cannot find account with id: " + id);
-            }
+
             return _mapper.Map<UserProfileDto>(userAccount);
         }
 
         public async Task<bool> UpdateUserAccount(UpdateAccountDto account)
         {
             if (account.Id == null)
-            {
                 throw new KeyNotFoundException("Id is null");
-            }
-            var updateUser = await userRepository.FindUserByIdAsync(account.Id.Value);
-            if(updateUser == null)
-            {
+
+            var updateUser = await _unitOfWork.Users.FindUserByIdAsync(account.Id.Value);
+            if (updateUser == null)
                 throw new KeyNotFoundException("Account with id:" + account.Id);
-            }
+
             if (account.PhoneNumber != null)
             {
                 ValidatePhone(account.PhoneNumber);
@@ -95,17 +85,17 @@ namespace SideCar.Business.Services
                 ValidateUsername(account.UserName);
                 updateUser.Username = account.UserName;
             }
-            await userRepository.SaveChangesAsync();
+
+            await _unitOfWork.CommitAsync();
             return true;
         }
 
         public async Task UpdateUserProfile(UpdateUserProfileDto account)
         {
-            var accountUpdate = await userRepository.FindUserByIdAsync(account.Id.Value);
-            if(accountUpdate == null)
-            {
-                throw new KeyNotFoundException("Account with id: " + account.Id + " not found"); 
-            }
+            var accountUpdate = await _unitOfWork.Users.FindUserByIdAsync(account.Id.Value);
+            if (accountUpdate == null)
+                throw new KeyNotFoundException("Account with id: " + account.Id + " not found");
+
             if (account.PhoneNumber != null)
             {
                 ValidatePhone(account.PhoneNumber);
@@ -121,69 +111,60 @@ namespace SideCar.Business.Services
                 ValidateUsername(account.UserName);
                 accountUpdate.Username = account.UserName;
             }
-            if(account.Email != null)
+            if (account.Email != null)
             {
                 ValidateEmail(account.Email);
                 accountUpdate.Email = account.Email;
             }
-            await userRepository.SaveChangesAsync();
-        }
 
-        private bool ValidatePhone(string phone)
-        {
-            if (string.IsNullOrWhiteSpace(phone))
-                throw new ValidationException("Phone number is required.");
-            if (!phone.All(char.IsDigit) || phone.Length != ValidationConstants.PhoneLength)
-                throw new ValidationException($"Phone number must be exactly {ValidationConstants.PhoneLength} digits.");
-
-            return true;
-        }
-
-        private bool ValidateFullName(string fullName)
-        {
-            if (fullName.Length < ValidationConstants.FullNameMinLength || fullName.Length > ValidationConstants.FullNameMaxLength)
-            {
-                throw new ValidationException($"Full name length must be between {ValidationConstants.FullNameMinLength} and {ValidationConstants.FullNameMaxLength} characters.");
-            }
-            return true;
-        }
-
-        private bool ValidateUsername(string username)
-        {
-            if (username.Length < ValidationConstants.UsernameMinLength || username.Length > ValidationConstants.UsernameMaxLength)
-            {
-                throw new ValidationException($"Username length must be between {ValidationConstants.UsernameMinLength} and {ValidationConstants.UsernameMaxLength} characters.");
-            }
-            return true;
-        }
-
-        private bool ValidateEmail(string email)
-        {
-            Regex regex = new(
-                @"^[^@\s]+@[^@\s]+\.[^@\s]{2,}$",
-                RegexOptions.Compiled | RegexOptions.IgnoreCase);
-            if (!regex.IsMatch(email))
-                throw new ValidationException("Email must be a valid format (e.g. example@domain.com).");
-            return true;
+            await _unitOfWork.CommitAsync();
         }
 
         public async Task UserChangePassword(Guid id, ChangePasswordRequest request)
         {
-            var userAccount = await userRepository.FindUserByIdAsync(id);
-            if(userAccount == null)
-            {
+            var userAccount = await _unitOfWork.Users.FindUserByIdAsync(id);
+            if (userAccount == null)
                 throw new KeyNotFoundException("Account with id: " + id);
-            }
-            if(request.NewPassword != request.ConfirmPassword)
-            {
+
+            if (request.NewPassword != request.ConfirmPassword)
                 throw new BusinessException("Confirm password do not match with new password");
-            }
-            if(!BCrypt.Net.BCrypt.Verify(request.OldPassword, userAccount.PasswordHash))
-            {
+
+            if (!BCrypt.Net.BCrypt.Verify(request.OldPassword, userAccount.PasswordHash))
                 throw new ValidationException("Wrong password, please check again");
-            }
-            var passwordHash = BCrypt.Net.BCrypt.HashPassword(request.NewPassword);
-            await userRepository.UpdatePassword(passwordHash, userAccount);
+
+            _unitOfWork.Users.UpdatePassword(BCrypt.Net.BCrypt.HashPassword(request.NewPassword), userAccount);
+            await _unitOfWork.CommitAsync();
+        }
+
+        private static bool ValidatePhone(string phone)
+        {
+            if (string.IsNullOrWhiteSpace(phone))
+                throw new ValidationException("Phone number is required.");
+            if (!phone.All(char.IsDigit) || phone.Length != ProjectConstant.PhoneLength)
+                throw new ValidationException($"Phone number must be exactly {ProjectConstant.PhoneLength} digits.");
+            return true;
+        }
+
+        private static bool ValidateFullName(string fullName)
+        {
+            if (fullName.Length < ProjectConstant.FullNameMinLength || fullName.Length > ProjectConstant.FullNameMaxLength)
+                throw new ValidationException($"Full name length must be between {ProjectConstant.FullNameMinLength} and {ProjectConstant.FullNameMaxLength} characters.");
+            return true;
+        }
+
+        private static bool ValidateUsername(string username)
+        {
+            if (username.Length < ProjectConstant.UsernameMinLength || username.Length > ProjectConstant.UsernameMaxLength)
+                throw new ValidationException($"Username length must be between {ProjectConstant.UsernameMinLength} and {ProjectConstant.UsernameMaxLength} characters.");
+            return true;
+        }
+
+        private static bool ValidateEmail(string email)
+        {
+            var regex = new Regex(@"^[^@\s]+@[^@\s]+\.[^@\s]{2,}$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            if (!regex.IsMatch(email))
+                throw new ValidationException("Email must be a valid format (e.g. example@domain.com).");
+            return true;
         }
     }
 }

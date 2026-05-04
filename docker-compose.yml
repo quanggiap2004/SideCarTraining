@@ -69,14 +69,14 @@ services:
     depends_on:
       - moto
     entrypoint: /bin/sh
-    command: >
-      -c " aws --endpoint-url http://moto:5555 s3 mb s3://email-templates --region us-east-1 && aws --endpoint-url http://moto:5555 s3 sync /EmailTemplates s3://email-templates/templates/ && echo 'S3 initialized successfully'"
+    command: /init-aws.sh
     environment:
       - AWS_ACCESS_KEY_ID=testing
       - AWS_SECRET_ACCESS_KEY=testing
       - AWS_DEFAULT_REGION=us-east-1
     volumes:
       - ./EmailTemplates:/EmailTemplates
+      - ./init-aws.sh:/init-aws.sh
     networks:
       - sidecar-network
 

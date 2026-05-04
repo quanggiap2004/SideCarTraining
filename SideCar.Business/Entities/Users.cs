@@ -2,9 +2,8 @@
 
 namespace SideCar.Business.Entities
 {
-    public class Users
+    public class Users : BaseEntity
     {
-        public Guid Id { get; set; }
         public string Username { get; set; } = string.Empty;
         public string Fullname { get; set; } = string.Empty;
         public string PhoneNumber { get; set; } = string.Empty;
@@ -16,6 +15,6 @@ namespace SideCar.Business.Entities
         public bool IsDeleted { get; set; }
         public string? ResetPasswordToken { get; set; }
         public DateTime? ResetPasswordExpiry { get; set; }
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public ICollection<UserActivityLog>? ActivityLog { get; set; }
     }
 }

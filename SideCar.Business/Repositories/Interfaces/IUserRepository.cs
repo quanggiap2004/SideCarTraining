@@ -8,7 +8,6 @@ namespace SideCar.Business.Repositories.Interfaces
         Task<IEnumerable<Users>> GetPagedUsersAsync(QueryUserParams userParams);
         Task<int> CountUsersAsync(QueryUserParams userParams);
         Task<Users?> FindUserByIdAsync(Guid id);
-        Task<int> SaveChangesAsync();
-        Task<int> UpdatePassword(string hashPassword, Users userEntity);
+        void UpdatePassword(string hashPassword, Users userEntity);
     }
 }

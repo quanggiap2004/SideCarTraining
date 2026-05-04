@@ -1,44 +1,55 @@
-﻿using BCrypt.Net;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using SideCar.Authen.DTOs;
 using SideCar.Business.DTOs;
 using SideCar.Business.Entities;
 using SideCar.Business.Enums;
-using SideCar.Business.Repositories;
 using SideCar.Business.Repositories.Interfaces;
 using SideCar.Business.Services.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace SideCar.Authen
+namespace SideCar.Business.Services
 {
-    public class AuthenService(IConfiguration config, IAuthenRepository authenRepository, IEmailPublisher emailPublisher) : IAuthenService
+    public class AuthenService(IConfiguration config, IUnitOfWork _unitOfWork, IEmailPublisher emailPublisher) : IAuthenService
     {
         public async Task<LoginResponse?> LoginAsync(string username, string password)
         {
-            var user = await authenRepository.GetByUsernameAsync(username);
-            if (user is null || !BCrypt.Net.BCrypt.Verify(password, user.PasswordHash))
+            var user = await _unitOfWork.Authen.GetByUsernameAsync(username);
+            if (user is null)
             {
-                Console.WriteLine($"[sidecar-authen] Login failed for '{username}' at {DateTime.UtcNow:HH:mm:ss}");
-                return null;
+                Console.WriteLine($"[sidecar-authen] Login failed for '{username}' at {DateTime.UtcNow:HH:mm:ss}, because username not exist");
+                throw new KeyNotFoundException($"Login failed for '{username}' at {DateTime.UtcNow:HH:mm:ss}, username not exist");
             }
-
+            if (!BCrypt.Net.BCrypt.Verify(password, user.PasswordHash))
+            {
+                await _unitOfWork.ActivityLogs.AddAsync(new UserActivityLog
+                {
+                    ActivityType = ActivityType.LoginFailed,
+                    CreatedAt = DateTime.UtcNow,
+                    UserId = user.Id,
+                });
+                await _unitOfWork.CommitAsync();
+                throw new KeyNotFoundException($"Login failed for '{username}' at {DateTime.UtcNow:HH:mm:ss}, wrong password");
+            }
             var refreshToken = GenerateRefreshToken();
             user.RefreshToken = HashToken(refreshToken);
             user.RefreshTokenExpiry = DateTime.UtcNow.AddMinutes(
                 int.Parse(config["Jwt:RefreshExpiryMinutes"] ?? "180"));
 
-            await authenRepository.SaveChangesAsync();
+            await _unitOfWork.ActivityLogs.AddAsync(new UserActivityLog
+            {
+                ActivityType = ActivityType.Login,
+                CreatedAt = DateTime.UtcNow,
+                UserId = user.Id,
+            });
+
+            await _unitOfWork.CommitAsync();
 
             return new LoginResponse
             {
-                AccessToken  = GenerateJwt(user),
+                AccessToken = GenerateJwt(user),
                 RefreshToken = refreshToken,
             };
         }
@@ -46,17 +57,15 @@ namespace SideCar.Authen
         public async Task<LoginResponse?> RefreshTokenAsync(string refreshToken)
         {
             var hashedToken = HashToken(refreshToken);
-            var user = await authenRepository.GetByRefreshTokenAsync(hashedToken);
+            var user = await _unitOfWork.Authen.GetByRefreshTokenAsync(hashedToken);
 
             if (user is null)
-            {
                 return null;
-            }
 
             if (user.RefreshTokenExpiry is null || user.RefreshTokenExpiry < DateTime.UtcNow)
             {
                 user.RefreshToken = string.Empty;
-                await authenRepository.SaveChangesAsync();
+                await _unitOfWork.CommitAsync();
                 return null;
             }
 
@@ -65,24 +74,22 @@ namespace SideCar.Authen
             user.RefreshTokenExpiry = DateTime.UtcNow.AddMinutes(
                 int.Parse(config["Jwt:RefreshExpiryMinutes"]!));
 
-            await authenRepository.SaveChangesAsync();
+            await _unitOfWork.CommitAsync();
 
             return new LoginResponse
             {
-                AccessToken  = GenerateJwt(user),
+                AccessToken = GenerateJwt(user),
                 RefreshToken = newRefreshToken,
             };
         }
 
-        public Task<bool> RegisterAsync(RegisterRequest request)
-            => CreateUserAsync(request, Roles.User);
+        public Task<bool> RegisterAsync(RegisterRequest request) => CreateUserAsync(request, Roles.User);
 
-        public Task<bool> RegisterAdminAsync(RegisterRequest request)
-            => CreateUserAsync(request, Roles.Admin);
+        public Task<bool> RegisterAdminAsync(RegisterRequest request) => CreateUserAsync(request, Roles.Admin);
 
         private async Task<bool> CreateUserAsync(RegisterRequest request, Roles role)
         {
-            var exists = await authenRepository.ExistsAsync(request.Username, request.Email, request.PhoneNumber);
+            var exists = await _unitOfWork.Authen.ExistsAsync(request.Username, request.Email, request.PhoneNumber);
             if (exists)
             {
                 Console.WriteLine($"[sidecar-authen] Register failed — '{request.Username}' already exists.");
@@ -99,11 +106,12 @@ namespace SideCar.Authen
                 Role = role
             };
 
-            await authenRepository.AddUserAsync(newUser);
+            await _unitOfWork.Authen.AddUserAsync(newUser);
+            await _unitOfWork.CommitAsync();
 
             if (role == Roles.User)
             {
-                var templateRequest = new TemplateEmailRequest
+                emailPublisher.QueueTemplateEmail(new TemplateEmailRequest
                 {
                     Email = request.Email,
                     Subject = "Welcome to our system",
@@ -114,8 +122,7 @@ namespace SideCar.Authen
                         { "Email", newUser.Email },
                         { "Username", newUser.Username }
                     }
-                };
-                emailPublisher.QueueTemplateEmail(templateRequest);
+                });
             }
 
             return true;
@@ -138,6 +145,7 @@ namespace SideCar.Authen
                     ValidateLifetime = true,
                     ClockSkew = TimeSpan.Zero
                 }, out _);
+
                 var userId = Guid.Parse(principal.FindFirstValue(ClaimTypes.NameIdentifier)!);
                 var username = principal.FindFirstValue(ClaimTypes.Name)!;
                 var role = principal.FindFirstValue(ClaimTypes.Role)!;
@@ -150,6 +158,58 @@ namespace SideCar.Authen
                 return null;
             }
         }
+
+        public async Task<string?> ForgotPasswordAsync(ForgotPasswordRequest request)
+        {
+            var user = await _unitOfWork.Authen.FindByAsync(x => x.Email == request.Email);
+            if (user is null)
+                throw new KeyNotFoundException("User with email: " + request.Email + " not found");
+
+            var rawToken = GenerateRefreshToken();
+            user.ResetPasswordToken = HashToken(rawToken);
+            user.ResetPasswordExpiry = DateTime.UtcNow.AddMinutes(15);
+
+            await _unitOfWork.CommitAsync();
+
+            var resetLink = $"{config["BaseUrl:Url"]}/auth/reset-password?token={Uri.EscapeDataString(rawToken)}";
+
+            emailPublisher.QueueTemplateEmail(new TemplateEmailRequest
+            {
+                Email = user.Email,
+                Subject = "Reset your password",
+                TemplateName = "reset-password",
+                Placeholders = new Dictionary<string, string>
+                {
+                    { "FullName", user.Fullname },
+                    { "ResetLink", resetLink }
+                }
+            });
+
+            return rawToken;
+        }
+
+        public async Task<bool> ResetPasswordAsync(string token, string newPassword)
+        {
+            var hashedToken = HashToken(token);
+            var user = await _unitOfWork.Authen.FindByAsync(u => u.ResetPasswordToken == hashedToken);
+
+            if (user is null || user.ResetPasswordExpiry is null || user.ResetPasswordExpiry < DateTime.UtcNow)
+                return false;
+
+            user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(newPassword);
+            user.ResetPasswordToken = null;
+            user.ResetPasswordExpiry = null;
+
+            var userActivity = new UserActivityLog
+            {
+                ActivityType = ActivityType.ResetPassword,
+                CreatedAt = DateTime.UtcNow,
+                UserId = user.Id
+            };
+            await _unitOfWork.CommitAsync();
+            return true;
+        }
+
         private string GenerateJwt(Users user)
         {
             var secret = config["Jwt:Secret"]!;
@@ -157,12 +217,12 @@ namespace SideCar.Authen
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
             var expiry = int.Parse(config["Jwt:ExpiryMinutes"] ?? "60");
             var claims = new[]
-                {
+            {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Name, user.Username),
                 new Claim(ClaimTypes.Role, user.Role.ToString()),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
-                };
+            };
             var token = new JwtSecurityToken(
                 issuer: config["Jwt:Issuer"],
                 claims: claims,
@@ -172,62 +232,12 @@ namespace SideCar.Authen
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        private string GenerateRefreshToken()
-        {
-            return Convert.ToBase64String(RandomNumberGenerator.GetBytes(64));
-        }
+        private static string GenerateRefreshToken() => Convert.ToBase64String(RandomNumberGenerator.GetBytes(64));
 
-        private string HashToken(string token)
+        private static string HashToken(string token)
         {
             var bytes = SHA256.HashData(Encoding.UTF8.GetBytes(token));
             return Convert.ToHexString(bytes).ToLowerInvariant();
-        }
-
-        public async Task<string?> ForgotPasswordAsync(ForgotPasswordRequest request)
-        {
-            var user = await authenRepository.FindByAsync(x => x.Email == request.Email);
-            if (user is null)
-            {
-                throw new KeyNotFoundException("User with email: " + request.Email + " not found");
-            }
-
-            var rawToken = GenerateRefreshToken();
-            user.ResetPasswordToken = HashToken(rawToken);
-            user.ResetPasswordExpiry = DateTime.UtcNow.AddMinutes(15);
-
-            await authenRepository.SaveChangesAsync();
-
-            var resetLink = $"{config["BaseUrl:Url"]}/auth/reset-password?token={Uri.EscapeDataString(rawToken)}";
-
-            var templateRequest = new TemplateEmailRequest
-            {
-                Email = user.Email,
-                Subject = "Reset your password",
-                TemplateName = "reset-password",
-                Placeholders = new Dictionary<string, string>
-                {
-                    { "FullName",  user.Fullname },
-                    { "ResetLink", resetLink }
-                }
-            };
-            emailPublisher.QueueTemplateEmail(templateRequest);
-
-            return rawToken;
-        }
-        public async Task<bool> ResetPasswordAsync(string token, string newPassword)
-        {
-            var hashedToken = HashToken(token);
-            var user = await authenRepository.FindByAsync(u => u.ResetPasswordToken == hashedToken);
-
-            if (user is null || user.ResetPasswordExpiry is null || user.ResetPasswordExpiry < DateTime.UtcNow)
-                return false;
-
-            user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(newPassword);
-            user.ResetPasswordToken = null;
-            user.ResetPasswordExpiry = null;
-
-            await authenRepository.SaveChangesAsync();
-            return true;
         }
     }
 }

@@ -32,7 +32,6 @@ namespace SideCar.Business.Repositories
         public async Task AddUserAsync(Users user)
         {
             await AddAsync(user);
-            await SaveChangesAsync();
         }
     }
 }

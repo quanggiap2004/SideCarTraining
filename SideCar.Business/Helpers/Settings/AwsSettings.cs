@@ -9,5 +9,6 @@
         public string? AccessKey { get; set; }
         public string? SecretKey { get; set; }
         public bool ForcePathStyle { get; set; }
+        public string AccountCreationQueueUrl { get; set; } = string.Empty;
     }
 }

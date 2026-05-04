@@ -12,16 +12,21 @@ namespace SideCar.Test
 {
     public class UsersTest
     {
+        private readonly Mock<IUnitOfWork> _unitOfWork = new();
         private readonly Mock<IUserRepository> _userRepository = new();
         private readonly Mock<IEmailPublisher> _emailPublisher = new();
         private readonly Mock<IMapper> _mapper = new();
 
-        private IUserService CreateService()
+        public UsersTest()
         {
-            return new UserService(_userRepository.Object, _emailPublisher.Object, _mapper.Object);
+            _unitOfWork.Setup(u => u.Users).Returns(_userRepository.Object);
+            _unitOfWork.Setup(u => u.CommitAsync()).ReturnsAsync(1);
         }
 
-        private Users FakeUser() => new Users
+        private IUserService CreateService() =>
+            new UserService(_unitOfWork.Object, _emailPublisher.Object, _mapper.Object);
+
+        private static Users FakeUser() => new Users
         {
             Email = "yugiohpro1992@gmail.com",
             Fullname = "Giapdeptrai",
@@ -35,7 +40,7 @@ namespace SideCar.Test
         [InlineData("0941922933 33333")]
         public async Task UpdateUserProfile_InvalidPhoneNumber_ReturnError(string phoneNumer)
         {
-            var updateDto = new UpdateUserProfileDto()
+            var updateDto = new UpdateUserProfileDto
             {
                 Email = "yugiohpro1992@gmail.com",
                 FullName = "Giapdeptrai",
@@ -43,10 +48,8 @@ namespace SideCar.Test
                 PhoneNumber = phoneNumer,
                 UserName = "Test",
             };
-            var user = FakeUser();
-            _userRepository.Setup(r => r.FindUserByIdAsync(updateDto.Id.Value)).ReturnsAsync(user);
-            var userService = CreateService();
-            var act = async () => await userService.UpdateUserProfile(updateDto);
+            _userRepository.Setup(r => r.FindUserByIdAsync(updateDto.Id.Value)).ReturnsAsync(FakeUser());
+            var act = async () => await CreateService().UpdateUserProfile(updateDto);
             await act.Should().ThrowAsync<ValidationException>();
         }
 
@@ -55,9 +58,7 @@ namespace SideCar.Test
         {
             var user = FakeUser();
             _userRepository.Setup(u => u.FindUserByIdAsync(user.Id)).ReturnsAsync(user);
-            _userRepository.Setup(u => u.SaveChangesAsync()).ReturnsAsync(1);
-            var userService = CreateService();
-            await userService.DeleteUserAccount(user.Id);
+            await CreateService().DeleteUserAccount(user.Id);
             _emailPublisher.Verify(p => p.QueueTemplateEmail(It.IsAny<TemplateEmailRequest>()), Times.Once);
         }
 
@@ -67,8 +68,7 @@ namespace SideCar.Test
         [InlineData("@gmail.com")]
         public async Task UpdateUserProfile_InvalidEmail_ReturnError(string email)
         {
-            var user = FakeUser();
-            var updateDto = new UpdateUserProfileDto()
+            var updateDto = new UpdateUserProfileDto
             {
                 Email = email,
                 FullName = "Giapdeptrai",
@@ -76,8 +76,7 @@ namespace SideCar.Test
                 PhoneNumber = "0112345678",
                 UserName = "Test12345",
             };
-            _userRepository.Setup(u => u.FindUserByIdAsync(updateDto.Id.Value)).ReturnsAsync(user);
-            _userRepository.Setup(u => u.SaveChangesAsync()).ReturnsAsync(1);
+            _userRepository.Setup(u => u.FindUserByIdAsync(updateDto.Id.Value)).ReturnsAsync(FakeUser());
             var act = async () => await CreateService().UpdateUserProfile(updateDto);
             await act.Should().ThrowAsync<ValidationException>().WithMessage("*email*");
         }

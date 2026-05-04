@@ -1,11 +1,18 @@
 using Amazon;
 using Amazon.Runtime;
 using Amazon.S3;
+using Amazon.SQS;
 using Hangfire;
-using Microsoft.Extensions.Caching.StackExchangeRedis;
+using Microsoft.EntityFrameworkCore;
+using SideCar.Business.Data;
 using SideCar.Business.Helpers.Exceptions;
 using SideCar.Business.Helpers.Settings;
+using SideCar.Business.Repositories;
+using SideCar.Business.Repositories.Interfaces;
 using SideCar.Business.Services;
+using SideCar.Business.Services.Interfaces;
+using SideCar.Worker.Workers;
+using SideCar.Business;
 using EmailService = SideCar.Business.Services.EmailService;
 
 var builder = Host.CreateDefaultBuilder(args);
@@ -14,6 +21,8 @@ builder.ConfigureServices((hostContext, services) =>
 {
     var config = hostContext.Configuration;
     var cs = config.GetConnectionString("DbConnection");
+
+    services.AddDbContext<ProjectDbContext>(options => options.UseSqlServer(cs));
 
     services.AddHangfire(cfg => cfg
         .SetDataCompatibilityLevel(CompatibilityLevel.Version_180)
@@ -32,6 +41,7 @@ builder.ConfigureServices((hostContext, services) =>
     services.Configure<EmailSettings>(config.GetSection(EmailSettings.SectionName));
     var awsSettings = config.GetSection(AwsSettings.SectionName).Get<AwsSettings>()!;
     var credentials = new BasicAWSCredentials(awsSettings.AccessKey ?? "testing", awsSettings.SecretKey ?? "testing");
+
     var s3Config = new AmazonS3Config
     {
         RegionEndpoint = RegionEndpoint.GetBySystemName(awsSettings.Region),
@@ -40,9 +50,21 @@ builder.ConfigureServices((hostContext, services) =>
     if (!string.IsNullOrEmpty(awsSettings.ServiceUrl))
         s3Config.ServiceURL = awsSettings.ServiceUrl;
     services.AddSingleton<IAmazonS3>(new AmazonS3Client(credentials, s3Config));
-    services.AddExceptionHandler<GlobalExceptionHandler>();
-    services.AddProblemDetails();
+
+    var sqsConfig = new AmazonSQSConfig
+    {
+        RegionEndpoint = RegionEndpoint.GetBySystemName(awsSettings.Region)
+    };
+    if (!string.IsNullOrEmpty(awsSettings.ServiceUrl))
+        sqsConfig.ServiceURL = awsSettings.ServiceUrl;
+    services.AddSingleton<IAmazonSQS>(new AmazonSQSClient(credentials, sqsConfig));
+
     services.AddScoped<IEmailService, EmailService>();
+    services.AddScoped<IEmailPublisher, HangfireEmailPublisher>();
+    services.AddScoped<IUnitOfWork, UnitOfWork>();
+    services.AddScoped<IAuthenService, AuthenService>();
+
+    services.AddHostedService<AccountCreationWorker>();
 });
 
 var host = builder.Build();

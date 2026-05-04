@@ -35,10 +35,9 @@ namespace SideCar.Business.Repositories
             return await FindByIdAsync(id);
         }
 
-        public async Task<int> UpdatePassword(string hashPassword, Users userEntity)
+        public void UpdatePassword(string hashPassword, Users userEntity)
         {
             userEntity.PasswordHash = hashPassword;
-            return await SaveChangesAsync();
         }
     }
 }

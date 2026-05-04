@@ -1,10 +1,6 @@
-﻿using SideCar.Authen.DTOs;
-using SideCar.Business.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using SideCar.Business.DTOs;
 
-namespace SideCar.Authen
+namespace SideCar.Business
 {
     public interface IAuthenService
     {

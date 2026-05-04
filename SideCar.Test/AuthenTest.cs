@@ -2,18 +2,29 @@ using FluentAssertions;
 using Microsoft.Extensions.Configuration;
 using Moq;
 using SideCar.Authen;
+using SideCar.Business;
 using SideCar.Business.DTOs;
 using SideCar.Business.Entities;
 using SideCar.Business.Enums;
 using SideCar.Business.Repositories.Interfaces;
+using SideCar.Business.Services;
 using SideCar.Business.Services.Interfaces;
 
 namespace SideCar.Test
 {
     public class AuthenTest
     {
-        private readonly Mock<IAuthenRepository> _repo = new();
+        private readonly Mock<IUnitOfWork> _unitOfWork = new();
+        private readonly Mock<IAuthenRepository> _authenRepo = new();
+        private readonly Mock<IUserActivityLogRepository> _activityLogRepo = new();
         private readonly Mock<IEmailPublisher> _emailPublisher = new();
+
+        public AuthenTest()
+        {
+            _unitOfWork.Setup(u => u.Authen).Returns(_authenRepo.Object);
+            _unitOfWork.Setup(u => u.ActivityLogs).Returns(_activityLogRepo.Object);
+            _unitOfWork.Setup(u => u.CommitAsync()).ReturnsAsync(1);
+        }
 
         private IAuthenService CreateService()
         {
@@ -26,7 +37,7 @@ namespace SideCar.Test
                 })
                 .Build();
 
-            return new AuthenService(config, _repo.Object, _emailPublisher.Object);
+            return new AuthenService(config, _unitOfWork.Object, _emailPublisher.Object);
         }
 
         [Fact]
@@ -41,11 +52,10 @@ namespace SideCar.Test
                 Role = Roles.User
             };
 
-            _repo.Setup(r => r.GetByUsernameAsync("johndoe")).ReturnsAsync(user);
-            _repo.Setup(r => r.SaveChangesAsync()).ReturnsAsync(1);
+            _authenRepo.Setup(r => r.GetByUsernameAsync("johndoe")).ReturnsAsync(user);
+            _activityLogRepo.Setup(r => r.AddAsync(It.IsAny<UserActivityLog>())).Returns(Task.CompletedTask);
 
-            var sut = CreateService();
-            var result = await sut.LoginAsync("johndoe", plainPassword);
+            var result = await CreateService().LoginAsync("johndoe", plainPassword);
 
             result.Should().NotBeNull();
             result!.AccessToken.Should().NotBeNullOrWhiteSpace();
@@ -64,28 +74,26 @@ namespace SideCar.Test
                 PhoneNumber = "1234567890",
             };
 
-            _repo.Setup(r => r.ExistsAsync("newuser", "new@example.com", "1234567890")).ReturnsAsync(false);
-            _repo.Setup(r => r.AddUserAsync(It.IsAny<Users>())).Returns(Task.CompletedTask);
-            _repo.Setup(r => r.SaveChangesAsync()).ReturnsAsync(1);
+            _authenRepo.Setup(r => r.ExistsAsync("newuser", "new@example.com", "1234567890")).ReturnsAsync(false);
+            _authenRepo.Setup(r => r.AddUserAsync(It.IsAny<Users>())).Returns(Task.CompletedTask);
             _emailPublisher.Setup(p => p.QueueTemplateEmail(It.IsAny<TemplateEmailRequest>()));
 
             var result = await CreateService().RegisterAsync(request);
 
             result.Should().BeTrue();
-            _repo.Verify(r => r.AddUserAsync(It.Is<Users>(u =>
+            _authenRepo.Verify(r => r.AddUserAsync(It.Is<Users>(u =>
                 u.Username == "newuser" &&
                 u.Email == "new@example.com" &&
                 u.PhoneNumber == "1234567890"
             )), Times.Once);
-            _repo.Verify(r => r.SaveChangesAsync(), Times.Once);
+            _unitOfWork.Verify(u => u.CommitAsync(), Times.Once);
         }
 
         [Fact]
         public async Task RegisterAsync_Success_EnqueuesWelcomeEmail()
         {
-            _repo.Setup(r => r.ExistsAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(false);
-            _repo.Setup(r => r.AddUserAsync(It.IsAny<Users>())).Returns(Task.CompletedTask);
-            _repo.Setup(r => r.SaveChangesAsync()).ReturnsAsync(1);
+            _authenRepo.Setup(r => r.ExistsAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(false);
+            _authenRepo.Setup(r => r.AddUserAsync(It.IsAny<Users>())).Returns(Task.CompletedTask);
             _emailPublisher.Setup(p => p.QueueTemplateEmail(It.IsAny<TemplateEmailRequest>()));
 
             var request = new RegisterRequest

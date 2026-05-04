@@ -10,8 +10,8 @@ namespace SideCar.Business.Helpers.ValidationRules
             var phone = value as string;
             if (string.IsNullOrWhiteSpace(phone))
                 return new ValidationResult("Phone number is required.");
-            if (!phone.All(char.IsDigit) || phone.Length != ValidationConstants.PhoneLength)
-                return new ValidationResult($"Phone number must be exactly {ValidationConstants.PhoneLength} digits.");
+            if (!phone.All(char.IsDigit) || phone.Length != ProjectConstant.PhoneLength)
+                return new ValidationResult($"Phone number must be exactly {ProjectConstant.PhoneLength} digits.");
             return ValidationResult.Success;
         }
     }

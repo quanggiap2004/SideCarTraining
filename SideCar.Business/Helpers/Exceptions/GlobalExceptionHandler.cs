@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using SideCar.Business.DTOs;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 
@@ -14,7 +14,7 @@ namespace SideCar.Business.Helpers.Exceptions
             Exception exception,
             CancellationToken cancellationToken)
         {
-            var statusCode = exception switch
+            var status = exception switch
             {
                 ValidationException         => StatusCodes.Status400BadRequest,
                 ArgumentException           => StatusCodes.Status400BadRequest,
@@ -24,24 +24,27 @@ namespace SideCar.Business.Helpers.Exceptions
                 _                           => StatusCodes.Status500InternalServerError
             };
 
-            BaseResponse<object> response;
+            httpContext.Response.StatusCode = status;
 
-            if (statusCode == StatusCodes.Status500InternalServerError)
+            var problemDetails = new ProblemDetails
+            {
+                Status = status,
+                Title  = exception.GetType().Name,
+                Detail = status == StatusCodes.Status500InternalServerError
+                    ? "An unexpected error occurred. Please try again later."
+                    : exception.Message,
+            };
+
+            if (status == StatusCodes.Status500InternalServerError)
             {
                 _logger.LogError(exception, "Unhandled exception on {Method} {Path}",
                     httpContext.Request.Method,
                     httpContext.Request.Path);
 
-                var traceId = Activity.Current?.Id ?? httpContext.TraceIdentifier;
-                response = new BaseResponse<object>("Internal Server Error", new { traceId });
-            }
-            else
-            {
-                response = new BaseResponse<object>(exception.Message, null);
+                problemDetails.Extensions["traceId"] = Activity.Current?.Id ?? httpContext.TraceIdentifier;
             }
 
-            httpContext.Response.StatusCode = statusCode;
-            await httpContext.Response.WriteAsJsonAsync(response, cancellationToken);
+            await httpContext.Response.WriteAsJsonAsync(problemDetails, cancellationToken);
             return true;
         }
     }

@@ -1,6 +1,7 @@
 using Hangfire;
 using Microsoft.EntityFrameworkCore;
 using SideCar.Authen;
+using SideCar.Business;
 using SideCar.Business.Data;
 using SideCar.Business.Helpers.Exceptions;
 using SideCar.Business.Repositories;
@@ -21,7 +22,7 @@ builder.Services.AddHangfire(cfg => cfg
     .UseRecommendedSerializerSettings()
     .UseSqlServerStorage(cs));
 
-builder.Services.AddScoped<IAuthenRepository, AuthenRepository>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IAuthenService, AuthenService>();
 builder.Services.AddScoped<IEmailPublisher, HangfireEmailPublisher>();
 builder.Services.AddControllers();
@@ -37,6 +38,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseExceptionHandler();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
