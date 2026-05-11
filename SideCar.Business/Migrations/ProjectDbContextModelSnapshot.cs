@@ -69,6 +69,9 @@ namespace SideCar.Business.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
+                    b.Property<DateTime?>("LastLoginAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("PasswordHash")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -97,10 +100,20 @@ namespace SideCar.Business.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasDefaultValue("User");
 
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasDefaultValue("Active");
+
                     b.Property<string>("Username")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime?>("WarningSentAt")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 

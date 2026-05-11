@@ -32,6 +32,7 @@ namespace SideCar.Business.Services
                 await _unitOfWork.CommitAsync();
                 return null;
             }
+            user.LastLoginAt = DateTime.UtcNow;
             var refreshToken = GenerateRefreshToken();
             user.RefreshToken = HashToken(refreshToken);
             user.RefreshTokenExpiry = DateTime.UtcNow.AddMinutes(

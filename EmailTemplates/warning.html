@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Account Inactivity Warning</title>
+</head>
+<body style="margin:0;padding:0;background-color:#0f0f1a;font-family:'Segoe UI',Arial,sans-serif;">
+
+    <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#0f0f1a;padding:48px 0;">
+        <tr>
+            <td align="center">
+
+                <!-- Outer card -->
+                <table width="580" cellpadding="0" cellspacing="0" style="border-radius:16px;overflow:hidden;box-shadow:0 8px 48px rgba(245,158,11,0.2);">
+
+                    <!-- Header -->
+                    <tr>
+                        <td style="background:linear-gradient(135deg,#b45309 0%,#d97706 50%,#fbbf24 100%);padding:52px 48px 40px;text-align:center;">
+                            <div style="display:inline-block;background:rgba(255,255,255,0.15);border-radius:50%;width:80px;height:80px;line-height:80px;font-size:36px;margin-bottom:20px;border:2px solid rgba(255,255,255,0.3);">
+                                ⚠️
+                            </div>
+                            <h1 style="margin:0 0 8px;color:#ffffff;font-size:30px;font-weight:700;letter-spacing:-0.5px;">
+                                Inactivity Warning
+                            </h1>
+                            <p style="margin:0;color:rgba(255,255,255,0.85);font-size:16px;font-weight:400;">
+                                Your account will be deactivated in <strong>5 days</strong>
+                            </p>
+                        </td>
+                    </tr>
+
+                    <!-- Body -->
+                    <tr>
+                        <td style="background-color:#1a1a2e;padding:40px 48px;">
+
+                            <p style="margin:0 0 8px;font-size:22px;font-weight:600;color:#ffffff;">
+                                Hi, <span style="color:#fbbf24;">{{FullName}}</span> 👋
+                            </p>
+                            <p style="margin:0 0 32px;font-size:15px;color:#94a3b8;line-height:1.7;">
+                                We noticed you haven't logged into your SideCar account for <strong style="color:#fbbf24;">30 days</strong>.
+                                If you do not log in within the next <strong style="color:#fbbf24;">5 days</strong>, your account will be automatically deactivated.
+                            </p>
+
+                            <!-- Timeline box -->
+                            <table width="100%" cellpadding="0" cellspacing="0"
+                                   style="background-color:#16213e;border-radius:12px;border:1px solid #2d2d4e;margin-bottom:32px;">
+                                <tr>
+                                    <td style="padding:24px 28px;">
+                                        <p style="margin:0 0 20px;font-size:12px;font-weight:600;color:#f59e0b;text-transform:uppercase;letter-spacing:1px;">
+                                            What happens next
+                                        </p>
+
+                                        <!-- Day 0 -->
+                                        <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:16px;">
+                                            <tr>
+                                                <td width="36" style="vertical-align:top;">
+                                                    <div style="width:32px;height:32px;background:rgba(251,191,36,0.15);border-radius:50%;text-align:center;line-height:32px;font-size:13px;font-weight:700;color:#fbbf24;border:1px solid rgba(251,191,36,0.3);">
+                                                        1
+                                                    </div>
+                                                </td>
+                                                <td style="padding-left:12px;vertical-align:middle;">
+                                                    <span style="display:block;font-size:14px;color:#e2e8f0;font-weight:600;">Today — Warning sent</span>
+                                                    <span style="display:block;font-size:13px;color:#64748b;margin-top:2px;">You have been inactive for 30 days.</span>
+                                                </td>
+                                            </tr>
+                                        </table>
+
+                                        <!-- Divider line -->
+                                        <div style="margin-left:16px;border-left:2px dashed #2d2d4e;height:12px;margin-bottom:16px;"></div>
+
+                                        <!-- Day 5 -->
+                                        <table width="100%" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <td width="36" style="vertical-align:top;">
+                                                    <div style="width:32px;height:32px;background:rgba(239,68,68,0.15);border-radius:50%;text-align:center;line-height:32px;font-size:13px;font-weight:700;color:#f87171;border:1px solid rgba(239,68,68,0.3);">
+                                                        2
+                                                    </div>
+                                                </td>
+                                                <td style="padding-left:12px;vertical-align:middle;">
+                                                    <span style="display:block;font-size:14px;color:#e2e8f0;font-weight:600;">In 5 days — Account deactivated</span>
+                                                    <span style="display:block;font-size:13px;color:#64748b;margin-top:2px;">Your account will be locked if no login occurs.</span>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <!-- CTA Button -->
+                            <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:32px;">
+                                <tr>
+                                    <td align="center">
+                                        <a href="#"
+                                           style="display:inline-block;background:linear-gradient(135deg,#d97706,#fbbf24);color:#1a1a2e;text-decoration:none;font-size:15px;font-weight:700;padding:16px 48px;border-radius:10px;letter-spacing:0.3px;box-shadow:0 4px 20px rgba(245,158,11,0.4);">
+                                            Log In Now →
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <!-- Notice -->
+                            <table width="100%" cellpadding="0" cellspacing="0"
+                                   style="background-color:#1e1b2e;border-radius:8px;border-left:3px solid #f59e0b;">
+                                <tr>
+                                    <td style="padding:14px 16px;">
+                                        <p style="margin:0;font-size:13px;color:#94a3b8;line-height:1.6;">
+                                            <span style="color:#f59e0b;font-weight:600;">💡 Good to know:</span>
+                                            Simply logging in resets your inactivity timer. Your account and data remain fully intact.
+                                        </p>
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </td>
+                    </tr>
+
+                    <!-- Footer -->
+                    <tr>
+                        <td style="background-color:#12122a;padding:24px 48px;text-align:center;border-top:1px solid #2d2d4e;">
+                            <p style="margin:0 0 6px;font-size:13px;color:#475569;">
+                                © 2026 SideCar. All rights reserved.
+                            </p>
+                            <p style="margin:0;font-size:12px;color:#334155;">
+                                This is an automated inactivity notice. If you have already logged in, please disregard this email.
+                            </p>
+                        </td>
+                    </tr>
+
+                </table>
+
+            </td>
+        </tr>
+    </table>
+
+</body>
+</html>
