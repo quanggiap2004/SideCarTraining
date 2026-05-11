@@ -80,7 +80,8 @@ namespace SideCar.Business.Services
 
             using var client = new SmtpClient();
             client.Connect(smtp.Host, smtp.Port, false);
-            client.Authenticate(smtp.Username, smtp.Password);
+            if (!string.IsNullOrEmpty(smtp.Username))
+                client.Authenticate(smtp.Username, smtp.Password);
             client.Send(messageModel);
             client.Disconnect(true);
         }

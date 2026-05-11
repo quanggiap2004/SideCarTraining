@@ -13,9 +13,9 @@ namespace SideCar.Business.Helpers.ValidationRules
         {
             var email = value as string;
             if (string.IsNullOrWhiteSpace(email))
-                return new ValidationResult("Email is required.");
+                throw new ValidationException("Email is required.");
             if (!_emailRegex.IsMatch(email))
-                return new ValidationResult("Email must be a valid format (e.g. example@domain.com).");
+                throw new ValidationException("Email must be a valid format (e.g. example@domain.com).");
             return ValidationResult.Success;
         }
     }

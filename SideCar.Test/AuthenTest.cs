@@ -9,6 +9,7 @@ using SideCar.Business.Enums;
 using SideCar.Business.Repositories.Interfaces;
 using SideCar.Business.Services;
 using SideCar.Business.Services.Interfaces;
+using System.Linq.Expressions;
 
 namespace SideCar.Test
 {
@@ -33,7 +34,8 @@ namespace SideCar.Test
                 {
                     ["Jwt:Secret"] = "test-super-secret-key-32-chars!!",
                     ["Jwt:Issuer"] = "test-issuer",
-                    ["Jwt:ExpiryMinutes"] = "60"
+                    ["Jwt:ExpiryMinutes"] = "60",
+                    ["Jwt:RefreshExpiryMinutes"] = "1440"
                 })
                 .Build();
 
@@ -41,29 +43,23 @@ namespace SideCar.Test
         }
 
         [Fact]
-        public async Task LoginAsync_ValidCredentials_ReturnsTokens()
+        public async Task LoginAsync_InputValidCredentials_ReturnsAccessTokenAndRefreshToken()
         {
-            var plainPassword = "Password1";
-            var user = new Users
+            var testUser = new Users
             {
                 Id = Guid.NewGuid(),
-                Username = "johndoe",
-                PasswordHash = BCrypt.Net.BCrypt.HashPassword(plainPassword),
-                Role = Roles.User
+                Username = "testuser",
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword("CorrectPassword123")
             };
-
-            _authenRepo.Setup(r => r.GetByUsernameAsync("johndoe")).ReturnsAsync(user);
-            _activityLogRepo.Setup(r => r.AddAsync(It.IsAny<UserActivityLog>())).Returns(Task.CompletedTask);
-
-            var result = await CreateService().LoginAsync("johndoe", plainPassword);
-
+            _authenRepo.Setup(repo => repo.GetByUsernameAsync("testuser")).ReturnsAsync(testUser);
+            var result = await CreateService().LoginAsync("testuser", "CorrectPassword123");
             result.Should().NotBeNull();
             result!.AccessToken.Should().NotBeNullOrWhiteSpace();
             result.RefreshToken.Should().NotBeNullOrWhiteSpace();
         }
 
         [Fact]
-        public async Task RegisterAsync_NewUser_ReturnsTrueAndSavesUser()
+        public async Task RegisterAsync_CreateNewUser_ReturnsTrueAndSavesUser()
         {
             var request = new RegisterRequest
             {
@@ -90,7 +86,7 @@ namespace SideCar.Test
         }
 
         [Fact]
-        public async Task RegisterAsync_Success_EnqueuesWelcomeEmail()
+        public async Task RegisterAsync_RegisterSuccess_EnqueuesWelcomeEmail()
         {
             _authenRepo.Setup(r => r.ExistsAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(false);
             _authenRepo.Setup(r => r.AddUserAsync(It.IsAny<Users>())).Returns(Task.CompletedTask);
@@ -108,6 +104,70 @@ namespace SideCar.Test
             await CreateService().RegisterAsync(request);
 
             _emailPublisher.Verify(p => p.QueueTemplateEmail(It.IsAny<TemplateEmailRequest>()), Times.Once);
+        }
+
+        [Fact]
+        public async Task LoginAsync_InputValidCredentials_LogsSuccessActivity()
+        {
+            var userId = Guid.NewGuid();
+            var testUser = new Users
+            {
+                Id = userId,
+                Username = "testuser",
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword("CorrectPassword123")
+            };
+            _authenRepo.Setup(repo => repo.GetByUsernameAsync("testuser")).ReturnsAsync(testUser);
+
+            await CreateService().LoginAsync("testuser", "CorrectPassword123");
+
+            _activityLogRepo.Verify(repo => repo.AddAsync(It.Is<UserActivityLog>(log =>
+                log.UserId == userId &&
+                log.ActivityType == ActivityType.Login
+            )), Times.Once);
+            _unitOfWork.Verify(u => u.CommitAsync(), Times.Once);
+        }
+
+        [Fact]
+        public async Task ResetPasswordAsync_InputValidToken_LogsSuccessActivity()
+        {
+            var userId = Guid.NewGuid();
+            var testUsers = new Users
+            {
+                Id = userId,
+                ResetPasswordExpiry = DateTime.UtcNow.AddMinutes(10),
+                ResetPasswordToken = "Random_hash_token"
+            };
+
+            _authenRepo.Setup(repo => repo.FindByAsync(It.IsAny<Expression<Func<Users, bool>>>())).ReturnsAsync(testUsers);
+            
+            await CreateService().ResetPasswordAsync("Random_hash_token", "NewPassword123");
+
+            _activityLogRepo.Verify(repo => repo.AddAsync(It.Is<UserActivityLog>(log =>
+                log.UserId == userId &&
+                log.ActivityType == ActivityType.ResetPassword
+            )), Times.Once);
+            _unitOfWork.Verify(u => u.CommitAsync(), Times.Once);
+        }
+
+        [Fact]
+        public async Task LoginAsync_InputInvalidPassword_LogsFailedActivity()
+        {
+            var userId = Guid.NewGuid();
+            var testUser = new Users
+            {
+                Id = userId,
+                Username = "testuser",
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword("InCorrectPassword")
+            };
+            _authenRepo.Setup(repo => repo.GetByUsernameAsync("testuser")).ReturnsAsync(testUser);
+
+            await CreateService().LoginAsync("testuser", "WrongPassword");
+
+            _activityLogRepo.Verify(repo => repo.AddAsync(It.Is<UserActivityLog>(log =>
+                log.UserId == userId &&
+                log.ActivityType == ActivityType.LoginFailed
+            )), Times.Once);
+            _unitOfWork.Verify(u => u.CommitAsync(), Times.Once);
         }
     }
 }

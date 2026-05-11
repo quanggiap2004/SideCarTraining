@@ -13,17 +13,17 @@ namespace SideCar.Authen.Controllers
         public async Task<IActionResult> Login([FromBody] LoginRequest req)
         {
             var token = await authenService.LoginAsync(req.Username, req.Password);
-            return token is null ? Unauthorized() : Ok(new { token });
+            return token is null ? BadRequest(new { Message = "Login failed" }) : Ok(new { token });
         }
 
-        [HttpPost("validate")]
-        public IActionResult Validate([FromBody] ValidateRequest req)
-        {
-            var result = authenService.ValidateToken(req.Token);
-            return result is null
-                ? Unauthorized()
-                : Ok(new { result.UserId, result.Username, result.Role });
-        }
+        //[HttpPost("validate")]
+        //public IActionResult Validate([FromBody] ValidateRequest req)
+        //{
+        //    var result = authenService.ValidateToken(req.Token);
+        //    return result is null
+        //        ? Unauthorized()
+        //        : Ok(new { result.UserId, result.Username, result.Role });
+        //}
 
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterRequest req)
@@ -31,7 +31,7 @@ namespace SideCar.Authen.Controllers
             var success = await authenService.RegisterAsync(req);
             return success
                 ? Ok(new { Message = "User registered successfully." })
-                : Conflict(new { Message = "Register failed" });
+                : BadRequest(new { Message = "Register failed" });
         }
 
         [HttpPost("refresh")]

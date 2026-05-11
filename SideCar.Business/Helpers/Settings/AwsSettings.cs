@@ -10,5 +10,6 @@
         public string? SecretKey { get; set; }
         public bool ForcePathStyle { get; set; }
         public string AccountCreationQueueUrl { get; set; } = string.Empty;
+        public string DlqUrl { get; set; } = string.Empty;
     }
 }

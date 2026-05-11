@@ -9,14 +9,17 @@ aws --endpoint-url http://moto:5555 s3 sync /EmailTemplates s3://email-templates
 
 echo ">>> Creating SQS dead letter queue..."
 aws --endpoint-url http://moto:5555 sqs create-queue \
-  --queue-name sidecar-create-account-dlq
+  --queue-name sidecar-create-account-dlq \
+    --attributes '{
+    "VisibilityTimeout": "5"
+  }'
 
 echo ">>> Creating SQS main queue with redrive policy (maxReceiveCount=3)..."
 aws --endpoint-url http://moto:5555 sqs create-queue \
   --queue-name sidecar-create-account-queue \
   --attributes '{
     "RedrivePolicy": "{\"deadLetterTargetArn\":\"arn:aws:sqs:us-east-1:123456789012:sidecar-create-account-dlq\",\"maxReceiveCount\":\"3\"}",
-    "VisibilityTimeout": "30"
+    "VisibilityTimeout": "20"
   }'
 
 echo ">>> Creating SNS topic..."

@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="14.0.0" />
     <PackageReference Include="AWSSDK.S3" Version="4.0.21.1" />
+    <PackageReference Include="AWSSDK.SQS" Version="4.0.2.27" />
     <PackageReference Include="Hangfire.AspNetCore" Version="1.8.23" />
     <PackageReference Include="Hangfire.Core" Version="1.8.23" />
     <PackageReference Include="MailKit" Version="4.15.1" />

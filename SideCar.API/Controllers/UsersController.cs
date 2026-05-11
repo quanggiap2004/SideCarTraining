@@ -39,8 +39,8 @@ namespace SideCar.API.Controllers
         {
             var result = await userService.DeleteUserAccount(id);
             return result
-                ? Ok(new BaseResponse<object>("Account deleted successfully", null))
-                : BadRequest(new BaseResponse<object>("Account already deleted", null));
+                ? Ok(new BaseResponse<object>("Account deleted successfully", result))
+                : BadRequest(new BaseResponse<object>("Account already deleted", result));
         }
 
         [Authorize]

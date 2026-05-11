@@ -38,7 +38,7 @@ namespace SideCar.Business.Services
                     { "FullName", userAccount.Fullname },
                     { "Email", userAccount.Email },
                     { "Username", userAccount.Username },
-                    { "DeleteAt", DateTime.UtcNow.ToString("dd MMM yyyy, HH:mm UTC") }
+                    { "DeletedAt", DateTime.UtcNow.ToString("dd MMM yyyy, HH:mm UTC") }
                 }
             });
 

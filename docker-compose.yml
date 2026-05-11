@@ -6,12 +6,40 @@ services:
     networks:
       - sidecar-network
 
+  moto:
+    image: motoserver/moto:latest
+    ports:
+      - "5555:5555"
+    environment:
+      - MOTO_PORT=5555
+    networks:
+      - sidecar-network
+  init-s3:
+    image: amazon/aws-cli:latest
+    depends_on:
+      - moto
+    entrypoint: /bin/sh
+    command: /init-aws.sh
+    environment:
+      - AWS_ACCESS_KEY_ID=testing
+      - AWS_SECRET_ACCESS_KEY=testing
+      - AWS_DEFAULT_REGION=us-east-1
+    volumes:
+      - ./EmailTemplates:/EmailTemplates
+      - ./init-aws.sh:/init-aws.sh
+    networks:
+      - sidecar-network
+
   sidecar-worker:
     build:
       context: .
       dockerfile: SideCar.Worker/Dockerfile
     depends_on:
-      - main-api
+      main-api:
+        condition: service_started
+      init-s3:
+        condition: service_completed_successfully
+          
     networks:
       - sidecar-network
     deploy:
@@ -48,38 +76,21 @@ services:
           cpus: '0.25'
           memory: '256M'
 
-  moto:
-    image: motoserver/moto:latest
-    ports:
-      - "5555:5555"
-    environment:
-      - MOTO_PORT=5555
-    networks:
-      - sidecar-network
-
   redis:
     image: redis:7-alpine
     ports:
       - "6381:6379"
     networks:
       - sidecar-network
-
-  init-s3:
-    image: amazon/aws-cli:latest
-    depends_on:
-      - moto
-    entrypoint: /bin/sh
-    command: /init-aws.sh
-    environment:
-      - AWS_ACCESS_KEY_ID=testing
-      - AWS_SECRET_ACCESS_KEY=testing
-      - AWS_DEFAULT_REGION=us-east-1
-    volumes:
-      - ./EmailTemplates:/EmailTemplates
-      - ./init-aws.sh:/init-aws.sh
+      
+  mailhog:
+    image: mailhog/mailhog
+    container_name: mailhog
+    ports:
+      - "1025:1025"
+      - "8025:8025"
     networks:
       - sidecar-network
-
 networks:
   sidecar-network:
     driver: bridge

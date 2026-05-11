@@ -6,8 +6,7 @@ namespace SideCar.Business.DTOs
 {
     public class LoginRequest
     {
-        [Required]
-        [StringLength(ProjectConstant.UsernameMaxLength, MinimumLength = ProjectConstant.UsernameMinLength, ErrorMessage = "Username length must be between 6 and 20 characters.")]
+        [ValidateUserName]
         public required string Username { get; set; }
         [ValidatePassword]
         public required string Password { get; set; }

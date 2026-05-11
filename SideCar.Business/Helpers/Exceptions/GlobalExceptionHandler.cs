@@ -28,7 +28,6 @@ namespace SideCar.Business.Helpers.Exceptions
 
             var problemDetails = new ProblemDetails
             {
-                Status = status,
                 Title  = exception.GetType().Name,
                 Detail = status == StatusCodes.Status500InternalServerError
                     ? "An unexpected error occurred. Please try again later."
@@ -37,10 +36,6 @@ namespace SideCar.Business.Helpers.Exceptions
 
             if (status == StatusCodes.Status500InternalServerError)
             {
-                _logger.LogError(exception, "Unhandled exception on {Method} {Path}",
-                    httpContext.Request.Method,
-                    httpContext.Request.Path);
-
                 problemDetails.Extensions["traceId"] = Activity.Current?.Id ?? httpContext.TraceIdentifier;
             }
 

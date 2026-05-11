@@ -38,7 +38,7 @@ namespace SideCar.Test
         [Theory]
         [InlineData("1 22222222 ")]
         [InlineData("0941922933 33333")]
-        public async Task UpdateUserProfile_InvalidPhoneNumber_ReturnError(string phoneNumer)
+        public async Task UpdateUserProfile_InputInvalidPhoneNumber_ReturnError(string phoneNumer)
         {
             var updateDto = new UpdateUserProfileDto
             {
@@ -54,7 +54,7 @@ namespace SideCar.Test
         }
 
         [Fact]
-        public async Task DeleteUserAccount_Success_EnqueueEmail()
+        public async Task DeleteUserAccount_DeleteSuccess_EnqueueEmail()
         {
             var user = FakeUser();
             _userRepository.Setup(u => u.FindUserByIdAsync(user.Id)).ReturnsAsync(user);

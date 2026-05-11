@@ -17,10 +17,9 @@ namespace SideCar.Business.Services
         public async Task<LoginResponse?> LoginAsync(string username, string password)
         {
             var user = await _unitOfWork.Authen.GetByUsernameAsync(username);
-            if (user is null)
+            if (user is null || user.IsDeleted)
             {
-                Console.WriteLine($"[sidecar-authen] Login failed for '{username}' at {DateTime.UtcNow:HH:mm:ss}, because username not exist");
-                throw new KeyNotFoundException($"Login failed for '{username}' at {DateTime.UtcNow:HH:mm:ss}, username not exist");
+                return null;
             }
             if (!BCrypt.Net.BCrypt.Verify(password, user.PasswordHash))
             {
@@ -31,12 +30,12 @@ namespace SideCar.Business.Services
                     UserId = user.Id,
                 });
                 await _unitOfWork.CommitAsync();
-                throw new KeyNotFoundException($"Login failed for '{username}' at {DateTime.UtcNow:HH:mm:ss}, wrong password");
+                return null;
             }
             var refreshToken = GenerateRefreshToken();
             user.RefreshToken = HashToken(refreshToken);
             user.RefreshTokenExpiry = DateTime.UtcNow.AddMinutes(
-                int.Parse(config["Jwt:RefreshExpiryMinutes"] ?? "180"));
+                int.Parse(config["Jwt:RefreshExpiryMinutes"]!));
 
             await _unitOfWork.ActivityLogs.AddAsync(new UserActivityLog
             {
@@ -206,6 +205,7 @@ namespace SideCar.Business.Services
                 CreatedAt = DateTime.UtcNow,
                 UserId = user.Id
             };
+            await _unitOfWork.ActivityLogs.AddAsync(userActivity);
             await _unitOfWork.CommitAsync();
             return true;
         }

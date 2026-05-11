@@ -54,17 +54,18 @@ namespace SideCar.Worker.Workers
                 if (!Validator.TryValidateObject(request, new ValidationContext(request), validationResults, true))
                     throw new ValidationException(string.Join(", ", validationResults.Select(v => v.ErrorMessage)));
 
+                //throw new Exception("Simulated DB connection failure");
                 var created = await authenService.RegisterAsync(request);
 
                 if (!created)
                     _logger.LogWarning("User {Username} already exists, skipping", request.Username);
 
                 await _sqs.DeleteMessageAsync(_awsSettings.Value.AccountCreationQueueUrl, message.ReceiptHandle, ct);
-                _logger.LogInformation("Processed account creation for {Username}", request.Username);
             }
             catch (ValidationException valEx)
             {
                 _logger.LogError(valEx, "Validation failed for message {MessageId}: {Errors}", message.MessageId, valEx.Message);
+                await _sqs.DeleteMessageAsync(_awsSettings.Value.AccountCreationQueueUrl, message.ReceiptHandle, ct);
             }
             catch (Exception ex)
             {

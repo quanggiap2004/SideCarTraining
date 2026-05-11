@@ -1,6 +1,7 @@
 using Amazon;
 using Amazon.Runtime;
 using Amazon.S3;
+using Amazon.SQS;
 using Hangfire;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -15,6 +16,7 @@ using SideCar.Business.Repositories.Interfaces;
 using SideCar.Business.Services;
 using SideCar.Business.Services.Interfaces;
 using System.Text;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
@@ -62,6 +64,13 @@ var s3Config = new AmazonS3Config
 if (!string.IsNullOrEmpty(awsSettings.ServiceUrl))
     s3Config.ServiceURL = awsSettings.ServiceUrl;
 builder.Services.AddSingleton<IAmazonS3>(new AmazonS3Client(credentials, s3Config));
+var sqsConfig = new AmazonSQSConfig
+{
+    RegionEndpoint = RegionEndpoint.GetBySystemName(awsSettings.Region)
+};
+if (!string.IsNullOrEmpty(awsSettings.ServiceUrl))
+    sqsConfig.ServiceURL = awsSettings.ServiceUrl;
+builder.Services.AddSingleton<IAmazonSQS>(new AmazonSQSClient(credentials, sqsConfig));
 
 builder.Services.AddStackExchangeRedisCache(options =>
 {
@@ -73,8 +82,12 @@ builder.Services.AddAutoMapper(typeof(UserMappingProfile).Assembly);
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<IEmailPublisher, HangfireEmailPublisher>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IUserActivityLogService, UserActivityLogService>();
+builder.Services.AddScoped<IQueueService, QueueService>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {

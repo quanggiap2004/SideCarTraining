@@ -61,3 +61,4 @@ postman_seed_users
 **/appsettings*.json 
 
 .vs/
+**/coveragereport/
