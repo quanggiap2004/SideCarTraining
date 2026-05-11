@@ -6,183 +6,183 @@
   },
   "item": [
     {
-      "name": "Register user01",
+      "name": "Register inactive01",
       "request": {
         "method": "POST",
         "header": [{ "key": "Content-Type", "value": "application/json" }],
-        "url": { "raw": "http://localhost:5072/api/auth/register", "protocol": "http", "host": ["localhost"], "port": "5072", "path": ["api", "auth", "register"] },
-        "body": { "mode": "raw", "raw": "{\n  \"username\": \"user01demo\",\n  \"password\": \"Secret1\",\n  \"email\": \"user01@gmail.com\",\n  \"fullName\": \"Nguyen Van An\",\n  \"phoneNumber\": \"0901234001\"\n}" }
+        "url": { "raw": "http://localhost:5001/auth/register", "protocol": "http", "host": ["localhost"], "port": "5001", "path": ["auth", "register"] },
+        "body": { "mode": "raw", "raw": "{\n  \"username\": \"inactive01\",\n  \"password\": \"Secret1\",\n  \"email\": \"inactive01@test.com\",\n  \"fullName\": \"Phan Thi Anh\",\n  \"phoneNumber\": \"0912345001\"\n}" }
       }
     },
     {
-      "name": "Register user02",
+      "name": "Register inactive02",
       "request": {
         "method": "POST",
         "header": [{ "key": "Content-Type", "value": "application/json" }],
-        "url": { "raw": "http://localhost:5072/api/auth/register", "protocol": "http", "host": ["localhost"], "port": "5072", "path": ["api", "auth", "register"] },
-        "body": { "mode": "raw", "raw": "{\n  \"username\": \"user02demo\",\n  \"password\": \"Secret1\",\n  \"email\": \"user02@gmail.com\",\n  \"fullName\": \"Tran Thi Bich\",\n  \"phoneNumber\": \"0901234002\"\n}" }
+        "url": { "raw": "http://localhost:5001/auth/register", "protocol": "http", "host": ["localhost"], "port": "5001", "path": ["auth", "register"] },
+        "body": { "mode": "raw", "raw": "{\n  \"username\": \"inactive02\",\n  \"password\": \"Secret1\",\n  \"email\": \"inactive02@test.com\",\n  \"fullName\": \"Nguyen Minh Bao\",\n  \"phoneNumber\": \"0912345002\"\n}" }
       }
     },
     {
-      "name": "Register user03",
+      "name": "Register inactive03",
       "request": {
         "method": "POST",
         "header": [{ "key": "Content-Type", "value": "application/json" }],
-        "url": { "raw": "http://localhost:5072/api/auth/register", "protocol": "http", "host": ["localhost"], "port": "5072", "path": ["api", "auth", "register"] },
-        "body": { "mode": "raw", "raw": "{\n  \"username\": \"user03demo\",\n  \"password\": \"Secret1\",\n  \"email\": \"user03@sidecar.dev\",\n  \"fullName\": \"Le Minh Cuong\",\n  \"phoneNumber\": \"0901234003\"\n}" }
+        "url": { "raw": "http://localhost:5001/auth/register", "protocol": "http", "host": ["localhost"], "port": "5001", "path": ["auth", "register"] },
+        "body": { "mode": "raw", "raw": "{\n  \"username\": \"inactive03\",\n  \"password\": \"Secret1\",\n  \"email\": \"inactive03@test.com\",\n  \"fullName\": \"Tran Hoang Chi\",\n  \"phoneNumber\": \"0912345003\"\n}" }
       }
     },
     {
-      "name": "Register user04",
+      "name": "Register inactive04",
       "request": {
         "method": "POST",
         "header": [{ "key": "Content-Type", "value": "application/json" }],
-        "url": { "raw": "http://localhost:5072/api/auth/register", "protocol": "http", "host": ["localhost"], "port": "5072", "path": ["api", "auth", "register"] },
-        "body": { "mode": "raw", "raw": "{\n  \"username\": \"user04demo\",\n  \"password\": \"Secret1\",\n  \"email\": \"user04@gmail.com\",\n  \"fullName\": \"Pham Thi Dung\",\n  \"phoneNumber\": \"0901234004\"\n}" }
+        "url": { "raw": "http://localhost:5001/auth/register", "protocol": "http", "host": ["localhost"], "port": "5001", "path": ["auth", "register"] },
+        "body": { "mode": "raw", "raw": "{\n  \"username\": \"inactive04\",\n  \"password\": \"Secret1\",\n  \"email\": \"inactive04@test.com\",\n  \"fullName\": \"Le Thi Dao\",\n  \"phoneNumber\": \"0912345004\"\n}" }
       }
     },
     {
-      "name": "Register user05",
+      "name": "Register inactive05",
       "request": {
         "method": "POST",
         "header": [{ "key": "Content-Type", "value": "application/json" }],
-        "url": { "raw": "http://localhost:5072/api/auth/register", "protocol": "http", "host": ["localhost"], "port": "5072", "path": ["api", "auth", "register"] },
-        "body": { "mode": "raw", "raw": "{\n  \"username\": \"user05demo\",\n  \"password\": \"Secret1\",\n  \"email\": \"user05@gmail.com\",\n  \"fullName\": \"Hoang Van Em\",\n  \"phoneNumber\": \"0901234005\"\n}" }
+        "url": { "raw": "http://localhost:5001/auth/register", "protocol": "http", "host": ["localhost"], "port": "5001", "path": ["auth", "register"] },
+        "body": { "mode": "raw", "raw": "{\n  \"username\": \"inactive05\",\n  \"password\": \"Secret1\",\n  \"email\": \"inactive05@test.com\",\n  \"fullName\": \"Vo Van Duc\",\n  \"phoneNumber\": \"0912345005\"\n}" }
       }
     },
     {
-      "name": "Register user06",
+      "name": "Register inactive06",
       "request": {
         "method": "POST",
         "header": [{ "key": "Content-Type", "value": "application/json" }],
-        "url": { "raw": "http://localhost:5072/api/auth/register", "protocol": "http", "host": ["localhost"], "port": "5072", "path": ["api", "auth", "register"] },
-        "body": { "mode": "raw", "raw": "{\n  \"username\": \"user06demo\",\n  \"password\": \"Secret1\",\n  \"email\": \"user06@gmail.com\",\n  \"fullName\": \"Vu Thi Phuong\",\n  \"phoneNumber\": \"0901234006\"\n}" }
+        "url": { "raw": "http://localhost:5001/auth/register", "protocol": "http", "host": ["localhost"], "port": "5001", "path": ["auth", "register"] },
+        "body": { "mode": "raw", "raw": "{\n  \"username\": \"inactive06\",\n  \"password\": \"Secret1\",\n  \"email\": \"inactive06@test.com\",\n  \"fullName\": \"Hoang Thi Gia\",\n  \"phoneNumber\": \"0912345006\"\n}" }
       }
     },
     {
-      "name": "Register user07",
+      "name": "Register inactive07",
       "request": {
         "method": "POST",
         "header": [{ "key": "Content-Type", "value": "application/json" }],
-        "url": { "raw": "http://localhost:5072/api/auth/register", "protocol": "http", "host": ["localhost"], "port": "5072", "path": ["api", "auth", "register"] },
-        "body": { "mode": "raw", "raw": "{\n  \"username\": \"user07demo\",\n  \"password\": \"Secret1\",\n  \"email\": \"user07@gmail.com\",\n  \"fullName\": \"Dang Quoc Giang\",\n  \"phoneNumber\": \"0901234007\"\n}" }
+        "url": { "raw": "http://localhost:5001/auth/register", "protocol": "http", "host": ["localhost"], "port": "5001", "path": ["auth", "register"] },
+        "body": { "mode": "raw", "raw": "{\n  \"username\": \"inactive07\",\n  \"password\": \"Secret1\",\n  \"email\": \"inactive07@test.com\",\n  \"fullName\": \"Pham Quoc Huy\",\n  \"phoneNumber\": \"0912345007\"\n}" }
       }
     },
     {
-      "name": "Register user08",
+      "name": "Register inactive08",
       "request": {
         "method": "POST",
         "header": [{ "key": "Content-Type", "value": "application/json" }],
-        "url": { "raw": "http://localhost:5072/api/auth/register", "protocol": "http", "host": ["localhost"], "port": "5072", "path": ["api", "auth", "register"] },
-        "body": { "mode": "raw", "raw": "{\n  \"username\": \"user08demo\",\n  \"password\": \"Secret1\",\n  \"email\": \"user08@gmail.com\",\n  \"fullName\": \"Bui Thi Hanh\",\n  \"phoneNumber\": \"0901234008\"\n}" }
+        "url": { "raw": "http://localhost:5001/auth/register", "protocol": "http", "host": ["localhost"], "port": "5001", "path": ["auth", "register"] },
+        "body": { "mode": "raw", "raw": "{\n  \"username\": \"inactive08\",\n  \"password\": \"Secret1\",\n  \"email\": \"inactive08@test.com\",\n  \"fullName\": \"Bui Thi Kim\",\n  \"phoneNumber\": \"0912345008\"\n}" }
       }
     },
     {
-      "name": "Register user09",
+      "name": "Register inactive09",
       "request": {
         "method": "POST",
         "header": [{ "key": "Content-Type", "value": "application/json" }],
-        "url": { "raw": "http://localhost:5072/api/auth/register", "protocol": "http", "host": ["localhost"], "port": "5072", "path": ["api", "auth", "register"] },
-        "body": { "mode": "raw", "raw": "{\n  \"username\": \"user09demo\",\n  \"password\": \"Secret1\",\n  \"email\": \"user09@gmail.com\",\n  \"fullName\": \"Do Van Hung\",\n  \"phoneNumber\": \"0901234009\"\n}" }
+        "url": { "raw": "http://localhost:5001/auth/register", "protocol": "http", "host": ["localhost"], "port": "5001", "path": ["auth", "register"] },
+        "body": { "mode": "raw", "raw": "{\n  \"username\": \"inactive09\",\n  \"password\": \"Secret1\",\n  \"email\": \"inactive09@test.com\",\n  \"fullName\": \"Do Xuan Long\",\n  \"phoneNumber\": \"0912345009\"\n}" }
       }
     },
     {
-      "name": "Register user10",
+      "name": "Register inactive10",
       "request": {
         "method": "POST",
         "header": [{ "key": "Content-Type", "value": "application/json" }],
-        "url": { "raw": "http://localhost:5072/api/auth/register", "protocol": "http", "host": ["localhost"], "port": "5072", "path": ["api", "auth", "register"] },
-        "body": { "mode": "raw", "raw": "{\n  \"username\": \"user10demo\",\n  \"password\": \"Secret1\",\n  \"email\": \"user10@gmail.com\",\n  \"fullName\": \"Ngo Thi Lan\",\n  \"phoneNumber\": \"0901234010\"\n}" }
+        "url": { "raw": "http://localhost:5001/auth/register", "protocol": "http", "host": ["localhost"], "port": "5001", "path": ["auth", "register"] },
+        "body": { "mode": "raw", "raw": "{\n  \"username\": \"inactive10\",\n  \"password\": \"Secret1\",\n  \"email\": \"inactive10@test.com\",\n  \"fullName\": \"Ngo Bich Mai\",\n  \"phoneNumber\": \"0912345010\"\n}" }
       }
     },
     {
-      "name": "Register user11",
+      "name": "Register inactive11",
       "request": {
         "method": "POST",
         "header": [{ "key": "Content-Type", "value": "application/json" }],
-        "url": { "raw": "http://localhost:5072/api/auth/register", "protocol": "http", "host": ["localhost"], "port": "5072", "path": ["api", "auth", "register"] },
-        "body": { "mode": "raw", "raw": "{\n  \"username\": \"user11demo\",\n  \"password\": \"Secret1\",\n  \"email\": \"user11@gmail.com\",\n  \"fullName\": \"Dinh Van Minh\",\n  \"phoneNumber\": \"0901234011\"\n}" }
+        "url": { "raw": "http://localhost:5001/auth/register", "protocol": "http", "host": ["localhost"], "port": "5001", "path": ["auth", "register"] },
+        "body": { "mode": "raw", "raw": "{\n  \"username\": \"inactive11\",\n  \"password\": \"Secret1\",\n  \"email\": \"inactive11@test.com\",\n  \"fullName\": \"Dang Van Nam\",\n  \"phoneNumber\": \"0912345011\"\n}" }
       }
     },
     {
-      "name": "Register user12",
+      "name": "Register inactive12",
       "request": {
         "method": "POST",
         "header": [{ "key": "Content-Type", "value": "application/json" }],
-        "url": { "raw": "http://localhost:5072/api/auth/register", "protocol": "http", "host": ["localhost"], "port": "5072", "path": ["api", "auth", "register"] },
-        "body": { "mode": "raw", "raw": "{\n  \"username\": \"user12demo\",\n  \"password\": \"Secret1\",\n  \"email\": \"user12@gmail.com\",\n  \"fullName\": \"Ly Thi Ngoc\",\n  \"phoneNumber\": \"0901234012\"\n}" }
+        "url": { "raw": "http://localhost:5001/auth/register", "protocol": "http", "host": ["localhost"], "port": "5001", "path": ["auth", "register"] },
+        "body": { "mode": "raw", "raw": "{\n  \"username\": \"inactive12\",\n  \"password\": \"Secret1\",\n  \"email\": \"inactive12@test.com\",\n  \"fullName\": \"Ly Thi Oanh\",\n  \"phoneNumber\": \"0912345012\"\n}" }
       }
     },
     {
-      "name": "Register user13",
+      "name": "Register inactive13",
       "request": {
         "method": "POST",
         "header": [{ "key": "Content-Type", "value": "application/json" }],
-        "url": { "raw": "http://localhost:5072/api/auth/register", "protocol": "http", "host": ["localhost"], "port": "5072", "path": ["api", "auth", "register"] },
-        "body": { "mode": "raw", "raw": "{\n  \"username\": \"user13demo\",\n  \"password\": \"Secret1\",\n  \"email\": \"user13@gmail.com\",\n  \"fullName\": \"Truong Van Oanh\",\n  \"phoneNumber\": \"0901234013\"\n}" }
+        "url": { "raw": "http://localhost:5001/auth/register", "protocol": "http", "host": ["localhost"], "port": "5001", "path": ["auth", "register"] },
+        "body": { "mode": "raw", "raw": "{\n  \"username\": \"inactive13\",\n  \"password\": \"Secret1\",\n  \"email\": \"inactive13@test.com\",\n  \"fullName\": \"Truong Minh Phuc\",\n  \"phoneNumber\": \"0912345013\"\n}" }
       }
     },
     {
-      "name": "Register user14",
+      "name": "Register inactive14",
       "request": {
         "method": "POST",
         "header": [{ "key": "Content-Type", "value": "application/json" }],
-        "url": { "raw": "http://localhost:5072/api/auth/register", "protocol": "http", "host": ["localhost"], "port": "5072", "path": ["api", "auth", "register"] },
-        "body": { "mode": "raw", "raw": "{\n  \"username\": \"user14demo\",\n  \"password\": \"Secret1\",\n  \"email\": \"user14@gmail.com\",\n  \"fullName\": \"Mai Thi Phuong\",\n  \"phoneNumber\": \"0901234014\"\n}" }
+        "url": { "raw": "http://localhost:5001/auth/register", "protocol": "http", "host": ["localhost"], "port": "5001", "path": ["auth", "register"] },
+        "body": { "mode": "raw", "raw": "{\n  \"username\": \"inactive14\",\n  \"password\": \"Secret1\",\n  \"email\": \"inactive14@test.com\",\n  \"fullName\": \"Mai Van Quyen\",\n  \"phoneNumber\": \"0912345014\"\n}" }
       }
     },
     {
-      "name": "Register user15",
+      "name": "Register inactive15",
       "request": {
         "method": "POST",
         "header": [{ "key": "Content-Type", "value": "application/json" }],
-        "url": { "raw": "http://localhost:5072/api/auth/register", "protocol": "http", "host": ["localhost"], "port": "5072", "path": ["api", "auth", "register"] },
-        "body": { "mode": "raw", "raw": "{\n  \"username\": \"user15demo\",\n  \"password\": \"Secret1\",\n  \"email\": \"user15@gmail.com\",\n  \"fullName\": \"Ha Van Quang\",\n  \"phoneNumber\": \"0901234015\"\n}" }
+        "url": { "raw": "http://localhost:5001/auth/register", "protocol": "http", "host": ["localhost"], "port": "5001", "path": ["auth", "register"] },
+        "body": { "mode": "raw", "raw": "{\n  \"username\": \"inactive15\",\n  \"password\": \"Secret1\",\n  \"email\": \"inactive15@test.com\",\n  \"fullName\": \"Ha Thi Rut\",\n  \"phoneNumber\": \"0912345015\"\n}" }
       }
     },
     {
-      "name": "Register user16",
+      "name": "Register inactive16",
       "request": {
         "method": "POST",
         "header": [{ "key": "Content-Type", "value": "application/json" }],
-        "url": { "raw": "http://localhost:5072/api/auth/register", "protocol": "http", "host": ["localhost"], "port": "5072", "path": ["api", "auth", "register"] },
-        "body": { "mode": "raw", "raw": "{\n  \"username\": \"user16demo\",\n  \"password\": \"Secret1\",\n  \"email\": \"user16@gmail.com\",\n  \"fullName\": \"Cao Thi Rong\",\n  \"phoneNumber\": \"0901234016\"\n}" }
+        "url": { "raw": "http://localhost:5001/auth/register", "protocol": "http", "host": ["localhost"], "port": "5001", "path": ["auth", "register"] },
+        "body": { "mode": "raw", "raw": "{\n  \"username\": \"inactive16\",\n  \"password\": \"Secret1\",\n  \"email\": \"inactive16@test.com\",\n  \"fullName\": \"Cao Xuan Son\",\n  \"phoneNumber\": \"0912345016\"\n}" }
       }
     },
     {
-      "name": "Register user17",
+      "name": "Register inactive17",
       "request": {
         "method": "POST",
         "header": [{ "key": "Content-Type", "value": "application/json" }],
-        "url": { "raw": "http://localhost:5072/api/auth/register", "protocol": "http", "host": ["localhost"], "port": "5072", "path": ["api", "auth", "register"] },
-        "body": { "mode": "raw", "raw": "{\n  \"username\": \"user17demo\",\n  \"password\": \"Secret1\",\n  \"email\": \"user17@gmail.com\",\n  \"fullName\": \"Luu Van Son\",\n  \"phoneNumber\": \"0901234017\"\n}" }
+        "url": { "raw": "http://localhost:5001/auth/register", "protocol": "http", "host": ["localhost"], "port": "5001", "path": ["auth", "register"] },
+        "body": { "mode": "raw", "raw": "{\n  \"username\": \"inactive17\",\n  \"password\": \"Secret1\",\n  \"email\": \"inactive17@test.com\",\n  \"fullName\": \"Luu Thi Tuyet\",\n  \"phoneNumber\": \"0912345017\"\n}" }
       }
     },
     {
-      "name": "Register user18",
+      "name": "Register inactive18",
       "request": {
         "method": "POST",
         "header": [{ "key": "Content-Type", "value": "application/json" }],
-        "url": { "raw": "http://localhost:5072/api/auth/register", "protocol": "http", "host": ["localhost"], "port": "5072", "path": ["api", "auth", "register"] },
-        "body": { "mode": "raw", "raw": "{\n  \"username\": \"user18demo\",\n  \"password\": \"Secret1\",\n  \"email\": \"user18@gmail.com\",\n  \"fullName\": \"Ta Thi Thuy\",\n  \"phoneNumber\": \"0901234018\"\n}" }
+        "url": { "raw": "http://localhost:5001/auth/register", "protocol": "http", "host": ["localhost"], "port": "5001", "path": ["auth", "register"] },
+        "body": { "mode": "raw", "raw": "{\n  \"username\": \"inactive18\",\n  \"password\": \"Secret1\",\n  \"email\": \"inactive18@test.com\",\n  \"fullName\": \"Ta Quoc Uyen\",\n  \"phoneNumber\": \"0912345018\"\n}" }
       }
     },
     {
-      "name": "Register user19",
+      "name": "Register inactive19",
       "request": {
         "method": "POST",
         "header": [{ "key": "Content-Type", "value": "application/json" }],
-        "url": { "raw": "http://localhost:5072/api/auth/register", "protocol": "http", "host": ["localhost"], "port": "5072", "path": ["api", "auth", "register"] },
-        "body": { "mode": "raw", "raw": "{\n  \"username\": \"user19demo\",\n  \"password\": \"Secret1\",\n  \"email\": \"user19@gmail.com\",\n  \"fullName\": \"Vo Thi Uyen\",\n  \"phoneNumber\": \"0901234019\"\n}" }
+        "url": { "raw": "http://localhost:5001/auth/register", "protocol": "http", "host": ["localhost"], "port": "5001", "path": ["auth", "register"] },
+        "body": { "mode": "raw", "raw": "{\n  \"username\": \"inactive19\",\n  \"password\": \"Secret1\",\n  \"email\": \"inactive19@test.com\",\n  \"fullName\": \"Vu Thi Van\",\n  \"phoneNumber\": \"0912345019\"\n}" }
       }
     },
     {
-      "name": "Register user20",
+      "name": "Register inactive20",
       "request": {
         "method": "POST",
         "header": [{ "key": "Content-Type", "value": "application/json" }],
-        "url": { "raw": "http://localhost:5072/api/auth/register", "protocol": "http", "host": ["localhost"], "port": "5072", "path": ["api", "auth", "register"] },
-        "body": { "mode": "raw", "raw": "{\n  \"username\": \"user20demo\",\n  \"password\": \"Secret1\",\n  \"email\": \"user20@gmail.com\",\n  \"fullName\": \"Duong Van Vinh\",\n  \"phoneNumber\": \"0901234020\"\n}" }
+        "url": { "raw": "http://localhost:5001/auth/register", "protocol": "http", "host": ["localhost"], "port": "5001", "path": ["auth", "register"] },
+        "body": { "mode": "raw", "raw": "{\n  \"username\": \"inactive20\",\n  \"password\": \"Secret1\",\n  \"email\": \"inactive20@test.com\",\n  \"fullName\": \"Dinh Van Xuan\",\n  \"phoneNumber\": \"0912345020\"\n}" }
       }
     }
   ]

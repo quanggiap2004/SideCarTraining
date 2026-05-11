@@ -15,5 +15,8 @@ namespace SideCar.Business.Helpers.Constants
 
         public const int MaxNumberOfMessages = 10;
         public const int WaitTimeSeconds = 20;
+
+        public const int WarningDays = 30;
+        public const int InactiveDays = 35;
     }
 }

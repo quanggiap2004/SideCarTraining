@@ -1,18 +1,24 @@
 ﻿using Amazon.Runtime.Internal.Util;
 using Amazon.S3;
 using Amazon.S3.Model;
+using Hangfire;
 using MailKit.Net.Smtp;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Options;
 using MimeKit;
 using SideCar.Business.DTOs;
+using SideCar.Business.Entities;
+using SideCar.Business.Enums;
+using SideCar.Business.Helpers.Exceptions;
 using SideCar.Business.Helpers.Settings;
+using SideCar.Business.Repositories;
+using SideCar.Business.Repositories.Interfaces;
 using System.Text;
 
 
 namespace SideCar.Business.Services
 {
-    public class EmailService(IOptions<AwsSettings> _awsSetting, IOptions<EmailSettings> _emailSettings, IAmazonS3 _s3Client, IDistributedCache _cache) : IEmailService
+    public class EmailService(IOptions<AwsSettings> _awsSetting, IOptions<EmailSettings> _emailSettings, IAmazonS3 _s3Client, IDistributedCache _cache, IUnitOfWork _unitOfWork) : IEmailService
     {
         public async Task SendEmail(string email, string subject, string message)
         {
@@ -80,7 +86,8 @@ namespace SideCar.Business.Services
 
             using var client = new SmtpClient();
             client.Connect(smtp.Host, smtp.Port, false);
-            client.Authenticate(smtp.Username, smtp.Password);
+            if (!string.IsNullOrEmpty(smtp.Username))
+                client.Authenticate(smtp.Username, smtp.Password);
             client.Send(messageModel);
             client.Disconnect(true);
         }
@@ -90,6 +97,30 @@ namespace SideCar.Business.Services
             foreach (var kvp in placeholders)
                 template = template.Replace($"{{{{{kvp.Key}}}}}", kvp.Value);
             return template;
+        }
+
+        public async Task SendWarningEmailAsync(string email, string fullName)
+        {
+            await SendEmailTemplate(new TemplateEmailRequest
+            {
+                Email = email,
+                Subject = "Your account will be deactivated in 5 days",
+                TemplateName = "warning",
+                Placeholders = new Dictionary<string, string> { { "FullName", fullName } }
+            });
+        }
+
+        public async Task SendDeactivationEmailAsync(string email, Guid userId)
+        {
+            var user = await _unitOfWork.Users.FindUserByIdAsync(userId);
+            if (user is null || user.Status != AccountStatus.Deactivated) return;
+            await SendEmailTemplate(new TemplateEmailRequest
+            {
+                Email = email,
+                Subject = "Your account has been deactivated",
+                TemplateName = "account-deactivated",
+                Placeholders = new Dictionary<string, string> { { "Email", email } }
+            });
         }
 
         private static string CacheKey(string templateName) => $"email-template:{templateName}";

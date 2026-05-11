@@ -15,6 +15,9 @@ namespace SideCar.Business.Entities
         public bool IsDeleted { get; set; }
         public string? ResetPasswordToken { get; set; }
         public DateTime? ResetPasswordExpiry { get; set; }
+        public AccountStatus Status { get; set; } = AccountStatus.Active;
+        public DateTime? LastLoginAt { get; set; }
+        public DateTime? WarningSentAt { get; set; }
         public ICollection<UserActivityLog>? ActivityLog { get; set; }
     }
 }

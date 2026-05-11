@@ -31,6 +31,10 @@ namespace SideCar.Business.Data
                     .HasMaxLength(50)
                     .HasDefaultValue(Roles.User)
                     .HasConversion<string>();
+                entity.Property(e => e.Status)
+                    .HasMaxLength(50)
+                    .HasDefaultValue(AccountStatus.Active)
+                    .HasConversion<string>();
             });
 
             modelBuilder.Entity<UserActivityLog>(entity =>

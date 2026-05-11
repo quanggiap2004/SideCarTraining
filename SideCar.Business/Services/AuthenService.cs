@@ -33,6 +33,7 @@ namespace SideCar.Business.Services
                 await _unitOfWork.CommitAsync();
                 throw new KeyNotFoundException($"Login failed for '{username}' at {DateTime.UtcNow:HH:mm:ss}, wrong password");
             }
+            user.LastLoginAt = DateTime.UtcNow;
             var refreshToken = GenerateRefreshToken();
             user.RefreshToken = HashToken(refreshToken);
             user.RefreshTokenExpiry = DateTime.UtcNow.AddMinutes(

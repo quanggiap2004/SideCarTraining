@@ -12,6 +12,7 @@ using SideCar.Business.Repositories.Interfaces;
 using SideCar.Business.Services;
 using SideCar.Business.Services.Interfaces;
 using SideCar.Worker.Workers;
+using SideCar.Business.Jobs;
 using SideCar.Business;
 using EmailService = SideCar.Business.Services.EmailService;
 
@@ -63,9 +64,26 @@ builder.ConfigureServices((hostContext, services) =>
     services.AddScoped<IEmailPublisher, HangfireEmailPublisher>();
     services.AddScoped<IUnitOfWork, UnitOfWork>();
     services.AddScoped<IAuthenService, AuthenService>();
+    services.AddScoped<DeactivateInactiveAccountsJob>();
+    services.AddScoped<WarnInactiveAccountsJob>();
 
     services.AddHostedService<AccountCreationWorker>();
 });
 
 var host = builder.Build();
+
+using (var scope = host.Services.CreateScope())
+{
+    var recurringJobs = scope.ServiceProvider.GetRequiredService<IRecurringJobManager>();
+    recurringJobs.AddOrUpdate<WarnInactiveAccountsJob>(
+        recurringJobId: "warn-inactive-accounts",
+        methodCall: job => job.ExecuteAsync(),
+        cronExpression: Cron.Daily(1));
+
+    recurringJobs.AddOrUpdate<DeactivateInactiveAccountsJob>(
+        recurringJobId: "deactivate-inactive-accounts",
+        methodCall: job => job.ExecuteAsync(),
+        cronExpression: Cron.Daily(2));
+}
+
 host.Run();
