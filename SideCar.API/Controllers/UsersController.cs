@@ -29,8 +29,8 @@ namespace SideCar.API.Controllers
             updateAccountDto.Id = id;
             var result = await userService.UpdateUserAccount(updateAccountDto);
             return result
-                ? Ok(new BaseResponse<object>("Account updated successfully", null))
-                : BadRequest(new BaseResponse<object>("Update failed", null));
+                ? Ok(new BaseResponse<bool>("Account updated successfully", result))
+                : BadRequest(new BaseResponse<bool>("Update failed", result));
         }
 
         [Authorize(Roles = "Admin")]

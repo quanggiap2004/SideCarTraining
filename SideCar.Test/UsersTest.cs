@@ -16,6 +16,7 @@ namespace SideCar.Test
         private readonly Mock<IUserRepository> _userRepository = new();
         private readonly Mock<IEmailPublisher> _emailPublisher = new();
         private readonly Mock<IMapper> _mapper = new();
+        private readonly Mock<IUserActivityLogRepository> _userActivityLogRepository = new();
 
         public UsersTest()
         {
@@ -24,7 +25,7 @@ namespace SideCar.Test
         }
 
         private IUserService CreateService() =>
-            new UserService(_unitOfWork.Object, _emailPublisher.Object, _mapper.Object);
+            new UserService(_unitOfWork.Object, _emailPublisher.Object, _mapper.Object, _userActivityLogRepository.Object);
 
         private static Users FakeUser() => new Users
         {

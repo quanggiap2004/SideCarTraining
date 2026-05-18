@@ -17,7 +17,7 @@ namespace SideCar.Business.Services
         public async Task<LoginResponse?> LoginAsync(string username, string password)
         {
             var user = await _unitOfWork.Authen.GetByUsernameAsync(username);
-            if (user is null || user.IsDeleted)
+            if (user is null || user.IsDeleted || user.Status == AccountStatus.Deactivated)
             {
                 return null;
             }
@@ -33,6 +33,7 @@ namespace SideCar.Business.Services
                 return null;
             }
             user.LastLoginAt = DateTime.UtcNow;
+            user.WarningSentAt = null;
             var refreshToken = GenerateRefreshToken();
             user.RefreshToken = HashToken(refreshToken);
             user.RefreshTokenExpiry = DateTime.UtcNow.AddMinutes(

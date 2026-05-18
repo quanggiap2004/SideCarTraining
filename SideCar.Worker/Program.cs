@@ -3,17 +3,19 @@ using Amazon.Runtime;
 using Amazon.S3;
 using Amazon.SQS;
 using Hangfire;
+using Hangfire.PostgreSql;
 using Microsoft.EntityFrameworkCore;
+using SideCar.Business;
 using SideCar.Business.Data;
 using SideCar.Business.Helpers.Exceptions;
 using SideCar.Business.Helpers.Settings;
+using SideCar.Business.Helpers.Utilities;
+using SideCar.Business.Jobs;
 using SideCar.Business.Repositories;
 using SideCar.Business.Repositories.Interfaces;
 using SideCar.Business.Services;
 using SideCar.Business.Services.Interfaces;
 using SideCar.Worker.Workers;
-using SideCar.Business.Jobs;
-using SideCar.Business;
 using EmailService = SideCar.Business.Services.EmailService;
 
 var builder = Host.CreateDefaultBuilder(args);
@@ -23,13 +25,13 @@ builder.ConfigureServices((hostContext, services) =>
     var config = hostContext.Configuration;
     var cs = config.GetConnectionString("DbConnection");
 
-    services.AddDbContext<ProjectDbContext>(options => options.UseSqlServer(cs));
+    services.AddDbContext<ProjectDbContext>(options => options.UseNpgsql(cs));
 
     services.AddHangfire(cfg => cfg
         .SetDataCompatibilityLevel(CompatibilityLevel.Version_180)
         .UseSimpleAssemblyNameTypeSerializer()
         .UseRecommendedSerializerSettings()
-        .UseSqlServerStorage(cs));
+        .UsePostgreSqlStorage(o => o.UseNpgsqlConnection(cs)));
     services.AddHangfireServer();
 
     services.AddStackExchangeRedisCache(options =>
@@ -66,6 +68,7 @@ builder.ConfigureServices((hostContext, services) =>
     services.AddScoped<IAuthenService, AuthenService>();
     services.AddScoped<DeactivateInactiveAccountsJob>();
     services.AddScoped<WarnInactiveAccountsJob>();
+    services.AddScoped<IDateTimerProvider, SystemDateTimeProvider>();
 
     services.AddHostedService<AccountCreationWorker>();
 });
@@ -78,12 +81,12 @@ using (var scope = host.Services.CreateScope())
     recurringJobs.AddOrUpdate<WarnInactiveAccountsJob>(
         recurringJobId: "warn-inactive-accounts",
         methodCall: job => job.ExecuteAsync(),
-        cronExpression: Cron.Daily(1));
+        cronExpression: Cron.Daily(4,5));
 
     recurringJobs.AddOrUpdate<DeactivateInactiveAccountsJob>(
         recurringJobId: "deactivate-inactive-accounts",
         methodCall: job => job.ExecuteAsync(),
-        cronExpression: Cron.Daily(2));
+        cronExpression: Cron.Daily(4,15));
 }
 
 host.Run();

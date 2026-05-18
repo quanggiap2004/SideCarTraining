@@ -1,8 +1,29 @@
 services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: sidecar
+      POSTGRES_PASSWORD: sidecar123
+      POSTGRES_DB: SideCarDb
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - sidecar-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U sidecar -d SideCarDb"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
   main-api:
     build:
       context: .
       dockerfile: SideCar.API/Dockerfile
+    depends_on:
+      postgres:
+        condition: service_healthy
     networks:
       - sidecar-network
 
@@ -35,6 +56,8 @@ services:
       context: .
       dockerfile: SideCar.Worker/Dockerfile
     depends_on:
+      postgres:
+        condition: service_healthy
       main-api:
         condition: service_started
       init-s3:
@@ -68,6 +91,9 @@ services:
       dockerfile: SideCar.Authen/Dockerfile
     environment:
       - ASPNETCORE_URLS=http://+:5001
+    depends_on:
+      postgres:
+        condition: service_healthy
     networks:
       - sidecar-network
     deploy:
@@ -95,3 +121,6 @@ services:
 networks:
   sidecar-network:
     driver: bridge
+
+volumes:
+  postgres_data:

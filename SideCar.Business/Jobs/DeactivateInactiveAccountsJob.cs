@@ -1,6 +1,7 @@
 using Hangfire;
 using Microsoft.Extensions.Logging;
 using SideCar.Business.Helpers.Constants;
+using SideCar.Business.Helpers.Utilities;
 using SideCar.Business.Repositories.Interfaces;
 using SideCar.Business.Services;
 
@@ -9,12 +10,11 @@ namespace SideCar.Business.Jobs
     public class DeactivateInactiveAccountsJob(
         IUnitOfWork unitOfWork,
         IBackgroundJobClient backgroundJobClient,
-        ILogger<DeactivateInactiveAccountsJob> logger)
+        ILogger<DeactivateInactiveAccountsJob> logger, IDateTimerProvider dateTimerProvider)
     {
         public async Task ExecuteAsync()
         {
-            var cutoffDate = DateTime.UtcNow.AddDays(-ProjectConstant.InactiveDays);
-
+            var cutoffDate = dateTimerProvider.GetUtcNow.AddDays(-ProjectConstant.InactiveDays);
             var candidates = await unitOfWork.Users.GetInactiveUserCandidatesAsync(cutoffDate);
 
             if (candidates.Count == 0)
@@ -24,13 +24,14 @@ namespace SideCar.Business.Jobs
             }
 
             List<Guid> ids = candidates.Select(x => x.Id).ToList();
-            var affected = await unitOfWork.Users.BulkDeactivateAccountAsync(ids, cutoffDate);
+            await unitOfWork.Users.BulkDeactivateAccountAsync(ids, cutoffDate);
 
-            foreach (var (id, email) in candidates)
+            foreach (var candidate in candidates)
             {
                 backgroundJobClient.Enqueue<IEmailService>(
-                    job => job.SendDeactivationEmailAsync(email, id));
+                    job => job.SendDeactivationEmailAsync(candidate.Email, candidate.Id));
             }
+
         }
     }
 }

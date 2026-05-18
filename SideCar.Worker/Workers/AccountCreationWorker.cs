@@ -22,20 +22,28 @@ namespace SideCar.Worker.Workers
 
             while (!stoppingToken.IsCancellationRequested)
             {
-                var response = await _sqs.ReceiveMessageAsync(new ReceiveMessageRequest
+                try
                 {
-                    QueueUrl            = _awsSettings.Value.AccountCreationQueueUrl,
-                    MaxNumberOfMessages = ProjectConstant.MaxNumberOfMessages,
-                    WaitTimeSeconds     = ProjectConstant.WaitTimeSeconds
-                }, stoppingToken);
+                    var response = await _sqs.ReceiveMessageAsync(new ReceiveMessageRequest
+                    {
+                        QueueUrl            = _awsSettings.Value.AccountCreationQueueUrl,
+                        MaxNumberOfMessages = ProjectConstant.MaxNumberOfMessages,
+                        WaitTimeSeconds     = ProjectConstant.WaitTimeSeconds
+                    }, stoppingToken);
 
-                if (response.Messages is null || response.Messages.Count <= 0)
-                    continue;
-                
-                var tasks = response.Messages
-                    .Select(message => ProcessMessageAsync(message, stoppingToken));
+                    if (response.Messages is null || response.Messages.Count <= 0)
+                        continue;
 
-                await Task.WhenAll(tasks);
+                    var tasks = response.Messages
+                        .Select(message => ProcessMessageAsync(message, stoppingToken));
+
+                    await Task.WhenAll(tasks);
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "SQS polling failed, retrying in 10 seconds");
+                    await Task.Delay(TimeSpan.FromSeconds(10), stoppingToken);
+                }
             }
         }
 

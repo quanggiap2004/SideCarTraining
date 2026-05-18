@@ -19,7 +19,7 @@ namespace SideCar.Business.Data
 
                 modelBuilder.Entity(entityType.ClrType)
                     .Property(nameof(BaseEntity.CreatedAt))
-                    .HasDefaultValueSql("GETUTCDATE()");
+                    .HasDefaultValueSql("NOW()");
             }
 
             modelBuilder.Entity<Users>(entity =>

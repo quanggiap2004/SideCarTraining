@@ -3,6 +3,7 @@ using Amazon.Runtime;
 using Amazon.S3;
 using Amazon.SQS;
 using Hangfire;
+using Hangfire.PostgreSql;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -23,13 +24,13 @@ var config = builder.Configuration;
 var cs = config.GetConnectionString("DbConnection");
 
 builder.Services.AddDbContext<ProjectDbContext>(options =>
-    options.UseSqlServer(cs));
+    options.UseNpgsql(cs));
 
 builder.Services.AddHangfire(cfg => cfg
     .SetDataCompatibilityLevel(CompatibilityLevel.Version_180)
     .UseSimpleAssemblyNameTypeSerializer()
     .UseRecommendedSerializerSettings()
-    .UseSqlServerStorage(cs));
+    .UsePostgreSqlStorage(o => o.UseNpgsqlConnection(cs)));
 
 builder.Services.AddHttpClient("authen", client =>
 {
@@ -78,13 +79,15 @@ builder.Services.AddStackExchangeRedisCache(options =>
     options.InstanceName = "SideCar:";
 });
 
-builder.Services.AddAutoMapper(typeof(UserMappingProfile).Assembly);
+builder.Services.AddAutoMapper(cfg => cfg.AddMaps(typeof(UserMappingProfile).Assembly));
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<IEmailPublisher, HangfireEmailPublisher>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserActivityLogService, UserActivityLogService>();
 builder.Services.AddScoped<IQueueService, QueueService>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IDateTimerProvider, SystemDateTimeProvider>();
+builder.Services.AddScoped<IUserActivityLogRepository, UserActivityLogRepository>();
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
         options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
@@ -124,11 +127,13 @@ app.UseHangfireDashboard("/hangfire", new DashboardOptions
     Authorization = new[] { new DevDashboardAuthorizationFilter() }
 });
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+//if (app.Environment.IsDevelopment())
+//{
+//    app.UseSwagger();
+//    app.UseSwaggerUI();
+//}
+app.UseSwagger();
+app.UseSwaggerUI();
 app.UseExceptionHandler();
 app.UseHttpsRedirection();
 app.UseAuthentication();

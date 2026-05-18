@@ -62,3 +62,6 @@ postman_seed_users
 
 .vs/
 **/coveragereport/
+**_bmad**/
+.agent/
+.claude/

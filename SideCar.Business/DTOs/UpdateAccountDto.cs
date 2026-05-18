@@ -1,4 +1,5 @@
-﻿using SideCar.Business.Helpers.ValidationRules;
+﻿using SideCar.Business.Enums;
+using SideCar.Business.Helpers.ValidationRules;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -17,5 +18,6 @@ namespace SideCar.Business.DTOs
         public string? FullName { get; set; }
         
         public string? UserName { get; set; }
+        public AccountStatus? Status { get; set; }
     }
 }

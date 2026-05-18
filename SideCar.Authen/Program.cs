@@ -1,4 +1,5 @@
 using Hangfire;
+using Hangfire.PostgreSql;
 using Microsoft.EntityFrameworkCore;
 using SideCar.Authen;
 using SideCar.Business;
@@ -14,13 +15,13 @@ var config = builder.Configuration;
 var cs = config.GetConnectionString("DbConnection");
 
 builder.Services.AddDbContext<ProjectDbContext>(options =>
-    options.UseSqlServer(cs));
+    options.UseNpgsql(cs));
 
 builder.Services.AddHangfire(cfg => cfg
     .SetDataCompatibilityLevel(CompatibilityLevel.Version_180)
     .UseSimpleAssemblyNameTypeSerializer()
     .UseRecommendedSerializerSettings()
-    .UseSqlServerStorage(cs));
+    .UsePostgreSqlStorage(o => o.UseNpgsqlConnection(cs)));
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IAuthenService, AuthenService>();
@@ -32,11 +33,13 @@ builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+//if (app.Environment.IsDevelopment())
+//{
+//    app.UseSwagger();
+//    app.UseSwaggerUI();
+//}
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseExceptionHandler();
 app.UseAuthentication();

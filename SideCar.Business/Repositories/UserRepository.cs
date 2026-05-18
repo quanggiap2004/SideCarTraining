@@ -43,22 +43,20 @@ namespace SideCar.Business.Repositories
             userEntity.PasswordHash = hashPassword;
         }
 
-        public async Task<List<(Guid Id, string Email)>> GetInactiveUserCandidatesAsync(DateTime cutoffDate)
+        public async Task<List<InactiveUserCandidate>> GetInactiveUserCandidatesAsync(DateTime cutoffDate)
         {
-            var result = await dbContext.Users
+            return await dbContext.Users
                 .Where(u => (u.LastLoginAt ?? u.CreatedAt) <= cutoffDate
                          && u.Status == AccountStatus.Active
                          && !u.IsDeleted)
-                .Select(u => new { u.Id, u.Email })
+                .Select(u => new InactiveUserCandidate { Id = u.Id, Email = u.Email })
                 .ToListAsync();
-
-            return result.Select(u => (u.Id, u.Email)).ToList();
         }
 
         public async Task<int> BulkDeactivateAccountAsync(List<Guid> ids, DateTime cutoffDate)
         {
             return await dbContext.Users
-                .Where(u => ids.Contains(u.Id))
+                .Where(u => ids.Contains(u.Id) && (u.LastLoginAt ?? u.CreatedAt) <= cutoffDate)
                 .ExecuteUpdateAsync(s => s.SetProperty(u => u.Status, AccountStatus.Deactivated));
         }
 

@@ -1,6 +1,7 @@
 using AutoMapper;
 using SideCar.Business.DTOs;
 using SideCar.Business.DTOs.Params;
+using SideCar.Business.Entities;
 using SideCar.Business.Enums;
 using SideCar.Business.Helpers.Constants;
 using SideCar.Business.Helpers.Exceptions;
@@ -11,7 +12,7 @@ using System.Text.RegularExpressions;
 
 namespace SideCar.Business.Services
 {
-    public class UserService(IUnitOfWork _unitOfWork, IEmailPublisher _emailPublisher, IMapper _mapper) : IUserService
+    public class UserService(IUnitOfWork _unitOfWork, IEmailPublisher _emailPublisher, IMapper _mapper, IUserActivityLogRepository _activityLogRepository) : IUserService
     {
         public async Task<bool> DeleteUserAccount(Guid id)
         {
@@ -84,6 +85,22 @@ namespace SideCar.Business.Services
             {
                 ValidateUsername(account.UserName);
                 updateUser.Username = account.UserName;
+            }
+            if(account.Status != null)
+            {
+                updateUser.Status = account.Status.Value;
+                if(account.Status == AccountStatus.Active)
+                {
+                    var currentTime = DateTime.UtcNow;
+                    updateUser.LastLoginAt = currentTime;
+                    updateUser.WarningSentAt = null;
+                    await _activityLogRepository.AddAsync(new UserActivityLog
+                    {
+                        UserId = updateUser.Id,
+                        ActivityType = ActivityType.Login,
+                        CreatedAt = currentTime
+                    }); // Log user login activity when account is re-activated by admin
+                }
             }
 
             await _unitOfWork.CommitAsync();
